@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var quotes = require('./routes/quotes');
-var random = require('./routes/random');
+var api_quotes = require('./routes/api_quotes');
+var api_random = require('./routes/api_random');
 
 var app = express();
 
@@ -26,8 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/quotes', quotes);
-app.use('/api/random', random);
+app.use('/api/quotes', api_quotes);
+app.use('/api/random', api_random);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
