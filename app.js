@@ -7,9 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var api_quotes = require('./routes/api_quotes');
-var api_random = require('./routes/api_random');
-
+var api = require('./routes/api');
 var app = express();
 
 // view engine setup
@@ -26,8 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/quotes', api_quotes);
-app.use('/api/random', api_random);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
