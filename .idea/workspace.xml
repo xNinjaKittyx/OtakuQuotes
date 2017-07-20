@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d399cde1-5f5e-4743-8f3e-84ed9a819fa0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/api_anime.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/api_char.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/api_quotes.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/api_random.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/double-ended-queue/package.json" afterPath="$PROJECT_DIR$/node_modules/double-ended-queue/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/redis-commands/package.json" afterPath="$PROJECT_DIR$/node_modules/redis-commands/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/redis-parser/package.json" afterPath="$PROJECT_DIR$/node_modules/redis-parser/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.js" afterPath="$PROJECT_DIR$/routes/api.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,22 +59,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="58" column="35" lean-forward="true" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
+            <state relative-caret-position="353">
+              <caret line="72" column="25" lean-forward="true" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package-lock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-840">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1500524533329" expanded="true" signature="0:19783" ph="{&quot;name&quot;: &quot;express&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="107:19781" ph="{...}" />
+                <marker date="1500524533329" expanded="true" signature="15911:16056" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.0.1.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="16070:17535" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/send/-/send-0.15.3.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="16216:17231" ph="{&quot;debug&quot;: &quot;https://registry.npmjs.org/debug/-/debug-2.6.7.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="17255:17529" ph="{...}" />
+                <marker date="1500524533329" expanded="true" signature="17274:17521" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/debug/-/debug-2.6.7.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="17433:17511" ph="{&quot;ms&quot;: &quot;https://registry.npmjs.org/ms/-/ms-2.0.0.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="17558:18105" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/serve-favicon/-/serve-favicon-2.4.3.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="17721:18099" ph="{&quot;etag&quot;: &quot;https://registry.npmjs.org/etag/-/etag-1.8.0.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="18127:18624" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/serve-static/-/serve-static-1.12.3.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="18289:18618" ph="{&quot;encodeurl&quot;: &quot;https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.1.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="18648:18799" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.0.3.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="18817:18956" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/statuses/-/statuses-1.3.1.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="18973:19315" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/type-is/-/type-is-1.6.15.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="19125:19309" ph="{&quot;media-typer&quot;: &quot;https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="19331:19466" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="19487:19632" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.0.tgz&quot;...}" />
+                <marker date="1500524533329" expanded="true" signature="19646:19777" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/vary/-/vary-1.1.1.tgz&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -229,6 +244,16 @@
               <item name="OtakuQuotes" type="b2602c69:ProjectViewProjectNode" />
               <item name="OtakuQuotes" type="462c0819:PsiDirectoryNode" />
               <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OtakuQuotes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OtakuQuotes" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OtakuQuotes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OtakuQuotes" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -684,12 +709,12 @@
       <workItem from="1500166007814" duration="15598000" />
       <workItem from="1500348877658" duration="2306000" />
       <workItem from="1500515464447" duration="648000" />
-      <workItem from="1500516224024" duration="7045000" />
+      <workItem from="1500516224024" duration="11936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40697000" />
+    <option name="totallyTimeSpent" value="45588000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1006,14 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="58" column="35" lean-forward="true" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1035,8 +1052,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-840">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1500524533329" expanded="true" signature="0:19783" ph="{&quot;name&quot;: &quot;express&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="107:19781" ph="{...}" />
+            <marker date="1500524533329" expanded="true" signature="15911:16056" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.0.1.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="16070:17535" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/send/-/send-0.15.3.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="16216:17231" ph="{&quot;debug&quot;: &quot;https://registry.npmjs.org/debug/-/debug-2.6.7.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="17255:17529" ph="{...}" />
+            <marker date="1500524533329" expanded="true" signature="17274:17521" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/debug/-/debug-2.6.7.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="17433:17511" ph="{&quot;ms&quot;: &quot;https://registry.npmjs.org/ms/-/ms-2.0.0.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="17558:18105" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/serve-favicon/-/serve-favicon-2.4.3.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="17721:18099" ph="{&quot;etag&quot;: &quot;https://registry.npmjs.org/etag/-/etag-1.8.0.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="18127:18624" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/serve-static/-/serve-static-1.12.3.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="18289:18618" ph="{&quot;encodeurl&quot;: &quot;https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.1.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="18648:18799" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.0.3.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="18817:18956" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/statuses/-/statuses-1.3.1.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="18973:19315" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/type-is/-/type-is-1.6.15.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="19125:19309" ph="{&quot;media-typer&quot;: &quot;https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="19331:19466" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="19487:19632" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.0.tgz&quot;...}" />
+            <marker date="1500524533329" expanded="true" signature="19646:19777" ph="{&quot;version&quot;: &quot;https://registry.npmjs.org/vary/-/vary-1.1.1.tgz&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="72" column="25" lean-forward="true" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
           <folding />
         </state>
       </provider>
