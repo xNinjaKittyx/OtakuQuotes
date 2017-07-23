@@ -1,3 +1,60 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel='stylesheet' href="/stylesheets/bulma/css/bulma.css"/>
+        <style type="text/css">
+            body {
+                overflow: auto;
+                overflow-y: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="hero is-transparent is-fullheight has-text-centered">
+            <div class="container">
+                <nav class="navbar has-shadow">
+                    <div class="navbar-menu">
+                        <div class="navbar-start">
+                            <a class="navbar-item is-hoverable" href="/">
+                                Home
+                            </a>
+                            <a class="navbar-item is-hoverable" href="quotes">
+                                Quotes
+                            </a>
+                            <a class="navbar-item is-hoverable" href="random" >
+                                Random
+                            </a>
+                            <a class="navbar-item is-hoverable" href="docs">
+                                Docs
+                            </a>
+                        </div>
+                        <div class="navbar-end">
+                            <a class="navbar-item is-hoverable" href="/">
+                                tfwnosearchbar
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        <%= message %>
+                    </h1>
+                    <h2 class="subtitle">
+                        <%= error.status %>
+                    </h2>
+                    <blockquote>
+                        <pre class="is-small has-text-left">
+                        <%= error.stack %>
+                        </pre>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+
