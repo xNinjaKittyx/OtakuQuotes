@@ -6,16 +6,19 @@
         <link rel='stylesheet' href='/stylesheets/style.css' />
         <link rel='stylesheet' href="/stylesheets/bulma/css/bulma.css"/>
         <style type="text/css">
-            body {
-                overflow: auto;
-                overflow-y: hidden;
+            #grad {
+                background: #6ecdf6; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(#6ecdf6, #2dc2f6); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(#6ecdf6, #2dc2f6); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(#6ecdf6, #2dc2f6); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(#6ecdf6, #2dc2f6); /* Standard syntax */
             }
         </style>
     </head>
     <body>
-        <section class="hero is-transparent is-fullheight has-text-centered">
+        <section id="grad" class="hero is-transparent is-primary is-fullheight has-text-centered">
             <div class="container">
-                <nav class="navbar has-shadow">
+                <nav style="background:none;" class="navbar main-nav">
                     <div class="navbar-menu">
                         <div class="navbar-start">
                             <a class="navbar-item is-hoverable" href="/">

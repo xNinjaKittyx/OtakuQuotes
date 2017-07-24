@@ -6,3 +6,18 @@
 /*a {*/
   /*color: #00B7FF;*/
 /*}*/
+.main-nav{
+    border-bottom:3px solid rgb(255,255,255);
+}
+
+#grad {
+    background: #6ecdf6; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(#6ecdf6, #2dc2f6); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#6ecdf6, #2dc2f6); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#6ecdf6, #2dc2f6); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#6ecdf6, #2dc2f6); /* Standard syntax */
+}
+
+#fuckcss:hover{
+    background-color: #0e301a;
+}
