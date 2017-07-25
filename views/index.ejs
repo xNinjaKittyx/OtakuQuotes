@@ -3,38 +3,43 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href="/stylesheets/bulma/css/bulma.css"/>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <section id="grad" class="hero is-transparent is-primary is-fullheight has-text-centered">
-      <div class="container">
-        <nav style="background:none;" class="navbar main-nav">
-          <div class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item" href="/">
-                Home
-              </a>
-              <a class="navbar-item" href="quotes">
-                Quotes
-              </a>
-              <a class="navbar-item" href="random" >
-                Random
-              </a>
-              <a class="navbar-item" href="docs">
-                Docs
-              </a>
+      <div class="hero-head">
+        <div class="container">
+          <nav style="background:none;" class="navbar main-nav">
+            <div class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item is-hoverable" href="/">
+                  Home
+                </a>
+                <a class="navbar-item is-hoverable" href="quotes">
+                  Quotes
+                </a>
+                <a class="navbar-item is-hoverable" href="random" >
+                  Random
+                </a>
+                <a class="navbar-item is-hoverable" href="docs">
+                  Docs
+                </a>
+                <a class="navbar-item is-hoverable" href="submit">
+                  Submit
+                </a>
+              </div>
+              <div class="navbar-end">
+                <a class="navbar-item" href="/">
+                  tfwnosearchbar
+                </a>
+              </div>
             </div>
-            <div class="navbar-end">
-              <a class="navbar-item" href="/">
-                tfwnosearchbar
-              </a>
-            </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
       <div class="hero-body">
-        <div class="container">
+        <div class="container has-text-centered">
           <h1 class="title">
               <%= title %>
           </h1>
