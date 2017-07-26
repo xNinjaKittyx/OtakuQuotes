@@ -35,7 +35,7 @@
     z-index: 2;
 }
 .main-nav{
-    border-bottom:3px solid rgb(255,255,255);
+    border-bottom:1px solid rgb(255,255,255);
 }
 
 #grad {
@@ -46,6 +46,6 @@
     background: radial-gradient(#6ecdf6, #2dc2f6); /* Standard syntax */
 }
 
-a.navbar-item:hover {
-    background-color: #4a4a4a;
+.navbar-item.is-hoverable:hover{
+    background-color: #a4dcff;
 }
