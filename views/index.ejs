@@ -3,46 +3,48 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href="/stylesheets/bulma/css/bulma.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <section id="grad" class="hero is-transparent is-primary is-fullheight has-text-centered">
-      <div class="container">
-        <nav style="background:none;" class="navbar main-nav">
-          <div class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item" href="/">
-                Home
-              </a>
-              <a class="navbar-item" href="quotes">
-                Quotes
-              </a>
-              <a class="navbar-item" href="random" >
-                Random
-              </a>
-              <a class="navbar-item" href="docs">
-                Docs
-              </a>
-            </div>
-            <div class="navbar-end">
-              <a class="navbar-item" href="/">
-                tfwnosearchbar
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div class="hero-body">
+    <div class="blurring"></div>
+        <section class="hero is-primary is-transparent is-fullheight has-text-centered">
         <div class="container">
-          <h1 class="title">
-              <%= title %>
-          </h1>
-          <h2 class="subtitle">
-              <%= description %>
-          </h2>
-        </div>
-      </div>
-    </section>
+            <nav style="background:none;" class="navbar main-nav">
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                <a class="navbar-item" href="/">
+                    Home
+                 </a>
+                  <a class="navbar-item" href="quotes">
+                   Quotes
+                  </a>
+                  <a class="navbar-item" href="random" >
+                    Random
+                  </a>
+                <a class="navbar-item" href="docs">
+                 Docs
+                </a>
+              </div>
+              <div class="navbar-end">
+                <a class="navbar-item" href="/">
+                  tfwnosearchbar
+                </a>
+              </div>
+             </div>
+         </nav>
+         </div>
+          <div class="hero-body">
+         <div class="container">
+             <h1 class="title">
+               <%= title %>
+           </h1>
+           <h2 class="subtitle">
+               <%= description %>
+           </h2>
+         </div>
+         </div>
+     </section>
   </body>
 </html>

@@ -7125,7 +7125,6 @@ label.panel-block:hover {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7537,7 +7536,7 @@ label.panel-block:hover {
 }
 
 .hero.is-primary {
-  background-color: #00d1b2;
+  /*background-color: #00d1b2;*/
   color: #fff;
 }
 
