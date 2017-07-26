@@ -1,3 +1,63 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel='stylesheet' href="/stylesheets/bulma/css/bulma.css"/>
+        <style type="text/css">
+            #grad {
+                background: #6ecdf6; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(#6ecdf6, #2dc2f6); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(#6ecdf6, #2dc2f6); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(#6ecdf6, #2dc2f6); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(#6ecdf6, #2dc2f6); /* Standard syntax */
+            }
+        </style>
+    </head>
+    <body>
+        <section id="grad" class="hero is-transparent is-primary is-fullheight has-text-centered">
+            <div class="container">
+                <nav style="background:none;" class="navbar main-nav">
+                    <div class="navbar-menu">
+                        <div class="navbar-start">
+                            <a class="navbar-item is-hoverable" href="/">
+                                Home
+                            </a>
+                            <a class="navbar-item is-hoverable" href="quotes">
+                                Quotes
+                            </a>
+                            <a class="navbar-item is-hoverable" href="random" >
+                                Random
+                            </a>
+                            <a class="navbar-item is-hoverable" href="docs">
+                                Docs
+                            </a>
+                        </div>
+                        <div class="navbar-end">
+                            <a class="navbar-item is-hoverable" href="/">
+                                tfwnosearchbar
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        <%= message %>
+                    </h1>
+                    <h2 class="subtitle">
+                        <%= error.status %>
+                    </h2>
+                    <blockquote>
+                        <pre class="is-small has-text-left">
+                        <%= error.stack %>
+                        </pre>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+
