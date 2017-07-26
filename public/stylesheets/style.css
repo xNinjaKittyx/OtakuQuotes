@@ -6,6 +6,34 @@
 /*a {*/
   /*color: #00B7FF;*/
 /*}*/
+@font-face{
+    font-family: 'SourceHanSans';
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('OTC/SourceHanSans-Light.ttc');
+}
+
+.blurring {
+    background-image: url("/Pictures/09e631d19e3c7dca4f1c4203a4331d4d.jpg");
+    background-size: cover;
+    display: block;
+    filter: brightness(40%);
+    height: 800px;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1;
+}
+
+.hero {
+    /*background-color: rgba(255, 255, 255, 0.05);*/
+    font-family: 'SourceHanSans';
+    left:0;
+    right: 0;
+    position: fixed;
+    z-index: 2;
+}
 .main-nav{
     border-bottom:3px solid rgb(255,255,255);
 }
@@ -18,6 +46,6 @@
     background: radial-gradient(#6ecdf6, #2dc2f6); /* Standard syntax */
 }
 
-#fuckcss:hover{
-    background-color: #0e301a;
+a.navbar-item:hover {
+    background-color: #4a4a4a;
 }
