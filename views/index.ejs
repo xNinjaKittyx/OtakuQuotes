@@ -7,8 +7,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <div class="blurring"></div>
-        <section class="hero is-primary is-transparent is-fullheight has-text-centered">
+  <div class="blurring ">
+  </div>
+    <section class="hero is-primary is-transparent is-fullheight has-text-centered">
       <div class="hero-head">
         <div class="container">
           <nav style="background:none;" class="navbar main-nav">
@@ -30,7 +31,7 @@
                   Submit
                 </a>
               </div>
-              <div class="navbar-end">
+              <div class="navbar-end is-hoverable">
                 <a class="navbar-item" href="/">
                   tfwnosearchbar
                 </a>
@@ -47,6 +48,14 @@
           <h2 class="subtitle">
               <%= description %>
           </h2>
+          <p class="hero-buttons">
+            <a class="button is-mainbutton is-large" href="api/random">
+              <span>Try It Out!</span>
+            </a>
+            <a class="button is-secondbutton is-large" href="api">
+              <span>View Docs</span>
+            </a>
+          </p>
         </div>
       </div>
     </section>

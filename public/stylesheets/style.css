@@ -15,11 +15,11 @@
 }
 
 .blurring {
-    background-image: url("/Pictures/09e631d19e3c7dca4f1c4203a4331d4d.jpg");
+    background-image: url("/pictures/kiminonawa.jpg");
     background-size: cover;
     display: block;
     filter: brightness(40%);
-    height: 800px;
+    height: 100%;
     left: 0;
     position: fixed;
     right: 0;
@@ -48,4 +48,23 @@
 
 .navbar-item.is-hoverable:hover{
     background-color: #a4dcff;
+}
+
+.is-mainbutton{
+    background-color: transparent;
+    border-color: lightskyblue;
+    color: lightskyblue;
+}
+.is-mainbutton:hover{
+    border-color: deepskyblue;
+    color: deepskyblue;
+}
+.is-secondbutton{
+    background-color: transparent;
+    border-color: whitesmoke;
+    color: whitesmoke;
+}
+.is-secondbutton:hover{
+    border-color: white;
+    color: white;
 }

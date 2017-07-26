@@ -8,3 +8,12 @@ Website and REST API for Anime/Manga Quotes.
 - Recommend using IntelliJ - https://www.jetbrains.com/idea/ (Free for Students)
 - Install Express NPM (Included with IntelliJ) `npm install express`
 - Run www.js
+
+
+### Project Staff
+
+- @jonathanh137
+- @jsyi1995
+- @TPBvirus
+
+### Extra Thanks To 

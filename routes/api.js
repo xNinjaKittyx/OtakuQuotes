@@ -11,6 +11,7 @@ client = redis.createClient({'db': 0});
 /* GET Quotes API. */
 
 router.get('/quotes', function(req, res, next) {
+    res.locals.title = 'AnimeQuotes';
     if(!req.query.tags){
         res.status(400).json({'status': 400, 'error': 'No tags were given.'});
     }
@@ -32,6 +33,7 @@ router.get('/quotes', function(req, res, next) {
 });
 
 router.get('/random', function(req, res, next) {
+    res.locals.title = 'AnimeQuotes';
     var quote = {};
     client.get('quote_count', function(err, reply) {
         if(err) {
@@ -53,6 +55,7 @@ router.get('/random', function(req, res, next) {
 });
 
 router.post('/submit', function(req, res){
+    res.locals.title = 'AnimeQuotes';
     var anime = req.body.anime;
     var char = req.body.char;
     var quote = req.body.quote;
@@ -107,6 +110,7 @@ function scanAsync(cursor, pattern, returnSet){
 }
 
 router.get('/pending', function(req, res) {
+    res.locals.title = 'AnimeQuotes';
     var dem_keys = new Set();
     var count = req.query.count;
     if (count == null) {
