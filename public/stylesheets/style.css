@@ -7,11 +7,10 @@
   /*color: #00B7FF;*/
 /*}*/
 @font-face{
-    font-family: 'SourceHanSans';
+    font-family: 'Verdana';
     font-weight: 300;
     font-style: normal;
     font-stretch: normal;
-    src: url('OTC/SourceHanSans-Light.ttc');
 }
 
 .blurring {
