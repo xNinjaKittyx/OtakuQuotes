@@ -28,6 +28,8 @@ router.get('/quotes', function(req, res, next) {
     var result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', dem_keys, results, tags).then(
         function(quotes){
+            console.log('parsing quotes');
+            console.log(quotes);
             result.quotes = quotes;
             result.quotes.sort(function (a, b) {
                 a = Number(a.id);
@@ -139,17 +141,13 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 console.log(quotes);
                 quotes.every(function(quote, i) {
                     console.log(quote);
-
-                    if (tags.some(function(v) {
-                        console.log(quote.anime.indexOf(v) >= 0);
-                        console.log(quote.char.indexOf(v) >= 0);
-                        console.log(quote.quote.indexOf(v) >= 0);
-                        return (quote.anime.indexOf(v) >= 0 || quote.char.indexOf(v) >= 0 || quote.quote.indexOf(v) >= 0)
-                    })) {
-                        console.log(key);
-                        returnSet.add(quote);
-                        return !(count && (returnSet.size >= count))
-                    }
+                    tags.forEach(function(tag, i) {
+                        if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
+                            console.log(quote);
+                            returnSet.add(quote);
+                        }
+                    });
+                    return !(count && (returnSet.size >= count))
                 })
                 }
             );
