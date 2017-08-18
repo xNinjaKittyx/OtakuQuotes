@@ -122,10 +122,10 @@ function scanAsync(cursor, pattern, returnSet, count){
             var keys = reply[1];
             keys.every(function(key,i){
                 returnSet.add(key);
-
+                return !(count && (returnSet.size >= count))
             });
 
-            if( cursor === '0' || (count && returnSet.size >= count)) {
+            if( cursor === '0' || (count && (returnSet.size >= count))) {
                 return Array.from(returnSet);
             }
             else{
@@ -151,12 +151,12 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 quotes.every(function(quote, i){
                     if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
                         returnSet.add(key);
-                        return !(count && returnSet.size >= count)
+                        return !(count && (returnSet.size >= count))
                     }
                 })
             });
 
-            if( cursor === '0' || (count && returnSet.size >= count)) {
+            if( cursor === '0' || (count && (returnSet.size >= count))) {
                 return Array.from(returnSet);
             }
             else{
