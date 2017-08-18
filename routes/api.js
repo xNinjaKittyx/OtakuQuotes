@@ -120,14 +120,12 @@ function scanAsync(cursor, pattern, returnSet, count){
 
             cursor = reply[0];
             var keys = reply[1];
-            keys.forEach(function(key,i){
+            keys.every(function(key,i){
                 returnSet.add(key);
-                if (count && returnSet.size >= count) {
-                    return Array.from(returnSet);
-                }
+
             });
 
-            if( cursor === '0' ) {
+            if( cursor === '0' || (count && returnSet.size >= count)) {
                 return Array.from(returnSet);
             }
             else{
@@ -150,17 +148,15 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
             }).then(function(quotes) {
                 tags = tags.join('|');
                 var regtags = '(' + tags + ')';
-                quotes.forEach(function(quote, i){
+                quotes.every(function(quote, i){
                     if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
                         returnSet.add(key);
-                        if (count && returnSet.size >= count) {
-                            return Array.from(returnSet);
-                        }
+                        return !(count && returnSet.size >= count)
                     }
                 })
             });
 
-            if( cursor === '0' ) {
+            if( cursor === '0' || (count && returnSet.size >= count)) {
                 return Array.from(returnSet);
             }
             else{
