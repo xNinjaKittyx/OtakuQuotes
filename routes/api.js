@@ -122,7 +122,7 @@ function scanAsync(cursor, pattern, returnSet, count){
             var keys = reply[1];
             keys.forEach(function(key,i){
                 returnSet.add(key);
-                if (count && returnSet.length >= count) {
+                if (count && returnSet.size >= count) {
                     return Array.from(returnSet);
                 }
             });
@@ -153,7 +153,7 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 quotes.forEach(function(quote, i){
                     if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
                         returnSet.add(key);
-                        if (count && returnSet.length >= count) {
+                        if (count && returnSet.size >= count) {
                             return Array.from(returnSet);
                         }
                     }
