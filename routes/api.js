@@ -13,15 +13,19 @@ client = redis.createClient({'db': 0});
 router.get('/quotes', function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
 
+    var dem_keys = new Set();
     var results = 25;
-    if(req.query.n){
-        results = req.query.n;
+    if(req.query.count){
+        results = req.query.count;
     }
     if(!req.query.tags){
         res.status(400).json({'status': 400, 'error': 'No tags were given.'})
     }
+    else {
+        var tags = req.query.tags.split('%20')
+    }
     var result = {'status': 200, 'quotes': []};
-    scanAsync('0', 'quotes:*', dem_keys).then(
+    scanAsyncTags('0', 'quotes:*', dem_keys, tags).then(
         function(dem_keys){
             bluebird.map(dem_keys, function(result) {
                 return client.hgetallAsync(result);
@@ -36,7 +40,6 @@ router.get('/quotes', function(req, res, next) {
                         return 1;
                     return 0
                 });
-                result.quotes = result.quotes.slice(0, count);
                 res.status(200).json(result);
             }, function(err) {
                 console.log(err);
@@ -137,7 +140,7 @@ function scanAsync(cursor, pattern, returnSet, count){
 }
 
 function scanAsyncTags(cursor, pattern, returnSet, count, tags){
-    // tags must be in REGEX format.
+    // tags must be in ARRAY format.
     return client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
         function (reply) {
 
@@ -190,7 +193,6 @@ router.get('/pending', function(req, res) {
                         return 1;
                     return 0
                 });
-                // result.quotes = result.quotes.slice(0, count);
                 res.status(200).json(result);
             }, function(err) {
                 console.log(err);
