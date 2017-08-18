@@ -13,7 +13,7 @@ client = redis.createClient({'db': 0});
 router.get('/quotes', function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
 
-    var dem_keys = new Set();
+    var quotes = new Set();
     var results = 25;
     if(req.query.maxResults){
         results = req.query.maxResults;
@@ -26,8 +26,8 @@ router.get('/quotes', function(req, res, next) {
         var tags = req.query.tags.split('%20')
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quote:*', dem_keys, results, tags)
-        .then(function(quotes){
+    scanAsyncTags('0', 'quote:*', quotes, results, tags)
+        .then(function(){
             console.log('parsing quotes');
             console.log(quotes);
             result.quotes = quotes;
@@ -148,21 +148,16 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                         }
                     });
                     return !(count && (returnSet.size >= count))
-                })
+                });
+                if( cursor === '0' || (count && (returnSet.size >= count))) {
+                    return Array.from(returnSet);
                 }
-            ).then(function() {
-                    if( cursor === '0' || (count && (returnSet.size >= count))) {
-                        return Array.from(returnSet);
-                    }
-                    else{
-                        return scanAsync(cursor, pattern, returnSet)
-                    }
-            }
+                else{
+                    return scanAsync(cursor, pattern, returnSet)
+                }
+                }
             );
-
-
-
-        });
+        })
 }
 
 router.get('/pending', function(req, res) {
