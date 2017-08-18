@@ -12,4 +12,5 @@ install:
   - sudo ./redis_quickstart.sh
 script: 
   - npm start &
-  - npm stop
+after-script:
+  - killall node
