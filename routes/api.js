@@ -58,7 +58,7 @@ router.get('/quotes', function(req, res, next) {
 router.get('/random', function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
     var quote = {};
-    client.get('quote_count', function(err, reply) {
+    client.get('quotecount', function(err, reply) {
         if(err) {
             console.log(err);
             res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
@@ -168,9 +168,9 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 router.get('/pending', function(req, res) {
     res.locals.title = 'AnimeQuotes';
     var dem_keys = new Set();
-    var count = req.query.count;
-    if (count == null) {
-        count = 10;
+    var count = 10;
+    if (req.query.count) {
+        count = req.query.count;
     }
     var result = {'status': 200, 'quotes': []};
     scanAsync('0', 'pending:*', dem_keys, count).then(
