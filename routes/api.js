@@ -133,7 +133,8 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
         function (reply) {
 
             cursor = reply[0];
-            var keys = reply[1];
+            return reply[1];
+        }).then(function(key) {
             bluebird.map(keys, function(key) {
                 console.log(key);
                 return client.hgetallAsync(key);
@@ -149,14 +150,17 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                     });
                     return !(count && (returnSet.size >= count))
                 });
-                if( cursor === '0' || (count && (returnSet.size >= count))) {
-                    return Array.from(returnSet);
-                }
-                else{
-                    return scanAsync(cursor, pattern, returnSet)
-                }
-                }
-            );
+                return true
+            }).then (function(lol) {
+                return lol
+            });
+        }).then(function(lol) {
+            if( cursor === '0' || (count && (returnSet.size >= count))) {
+                return Array.from(returnSet);
+            }
+            else{
+                return scanAsync(cursor, pattern, returnSet)
+            }
         })
 }
 
