@@ -11,4 +11,5 @@ install:
   - chmod +x redis_quickstart.sh
   - sudo ./redis_quickstart.sh
 script: 
-  - npm start
+  - npm start &
+  - npm stop
