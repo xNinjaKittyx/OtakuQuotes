@@ -138,15 +138,23 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 
             cursor = reply[0];
             var keys = reply[1];
-            keys.every(function(key, i) {
-                client.hgetall(key)
-                    .then(function (quote) {
-                        if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
-                            returnSet.add(key);
-                            return !(count && (returnSet.size >= count))
-                        }
-                    })
-            });
+            bluebird.map(keys, function(key) {
+                console.log(key);
+                return client.hgetallAsync(key);
+            }).then(function(quotes) {
+                console.log(quotes);
+                quotes.every(function(quote, i) {
+                    console.log(quote);
+                    console.log(quote.anime.match(regtags));
+                    console.log(quote.char.match(regtags));
+                    console.log(quote.quote.match(regtags));
+                    if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
+                        returnSet.add(key);
+                        return !(count && (returnSet.size >= count))
+                    }
+                })
+                }
+            );
 
             if( cursor === '0' || (count && (returnSet.size >= count))) {
                 return Array.from(returnSet);
