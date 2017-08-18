@@ -27,27 +27,22 @@ router.get('/quotes', function(req, res, next) {
     }
     var result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', dem_keys, results, tags).then(
-        function(dem_keys){
-            bluebird.map(dem_keys, function(result) {
-                return client.hgetallAsync(result);
-            }).then(function(quotes) {
-                result.quotes = quotes;
-                result.quotes.sort(function (a, b) {
-                    a = Number(a.id);
-                    b = Number(b.id);
-                    if (a < b)
-                        return -1;
-                    if (a > b)
-                        return 1;
-                    return 0
-                });
-                res.status(200).json(result);
-            }, function(err) {
-                console.log(err);
-                res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+        function(quotes){
+            result.quotes = quotes;
+            result.quotes.sort(function (a, b) {
+                a = Number(a.id);
+                b = Number(b.id);
+                if (a < b)
+                    return -1;
+                if (a > b)
+                    return 1;
+                return 0
             });
-        }
-    );
+            res.status(200).json(result);
+        }, function(err) {
+            console.log(err);
+            res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+        });
 });
 
 router.get('/random', function(req, res, next) {
@@ -151,7 +146,8 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                         console.log(quote.quote.indexOf(v) >= 0);
                         return (quote.anime.indexOf(v) >= 0 || quote.char.indexOf(v) >= 0 || quote.quote.indexOf(v) >= 0)
                     })) {
-                        returnSet.add(key);
+                        console.log(key);
+                        returnSet.add(quote);
                         return !(count && (returnSet.size >= count))
                     }
                 })
