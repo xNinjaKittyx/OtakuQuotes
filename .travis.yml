@@ -1,0 +1,16 @@
+dist: trusty
+sudo: enabled
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - "node_modules"
+install:
+  - npm install
+  - chmod +x redis_quickstart.sh
+  - sudo ./redis_quickstart.sh
+script: 
+  - npm start &
+after-script:
+  - killall node
