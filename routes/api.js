@@ -145,9 +145,12 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 quotes.every(function(quote, i) {
                     console.log(quote);
 
-                    if (tags.some(function(v) { return (
-                            quote.anime.indexOf(v) >= 0 || quote.char.indexOf(v) >= 0 || quote.quote.indexOf(v) >= 0
-                        )})) {
+                    if (tags.some(function(v) {
+                        console.log(quote.anime.indexOf(v) >= 0);
+                        console.log(quote.char.indexOf(v) >= 0);
+                        console.log(quote.quote.indexOf(v) >= 0);
+                        return (quote.anime.indexOf(v) >= 0 || quote.char.indexOf(v) >= 0 || quote.quote.indexOf(v) >= 0)
+                    })) {
                         returnSet.add(key);
                         return !(count && (returnSet.size >= count))
                     }
