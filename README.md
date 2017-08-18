@@ -1,5 +1,10 @@
 # OtakuQuotes
+[![Build Status](https://travis-ci.org/xNinjaKittyx/OtakuQuotes.svg?branch=master)](https://travis-ci.org/xNinjaKittyx/OtakuQuotes)
+
+
 Website and REST API for Anime/Manga Quotes.
+
+
 
 
 ## Setup
