@@ -15,17 +15,18 @@ router.get('/quotes', function(req, res, next) {
 
     var dem_keys = new Set();
     var results = 25;
-    if(req.query.count){
-        results = req.query.count;
+    if(req.query.maxResults){
+        results = req.query.maxResults;
     }
     if(!req.query.tags){
         res.status(400).json({'status': 400, 'error': 'No tags were given.'})
+        return
     }
     else {
         var tags = req.query.tags.split('%20').join('|')
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quotes:*', dem_keys, tags).then(
+    scanAsyncTags('0', 'quotes:*', dem_keys, results, tags).then(
         function(dem_keys){
             bluebird.map(dem_keys, function(result) {
                 return client.hgetallAsync(result);
@@ -57,7 +58,6 @@ router.get('/random', function(req, res, next) {
             console.log(err);
             res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
         }
-        console.log(reply);
         client.hgetall('quote:' +
             random.integer(1, reply)(engine),
             function(err, reply) {
@@ -163,12 +163,12 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 router.get('/pending', function(req, res) {
     res.locals.title = 'AnimeQuotes';
     var dem_keys = new Set();
-    var count = 10;
-    if (req.query.count) {
-        count = req.query.count;
+    var results = 10;
+    if (req.query.maxResults) {
+        results = req.query.maxResults;
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsync('0', 'pending:*', dem_keys, count).then(
+    scanAsync('0', 'pending:*', dem_keys, results).then(
         function(dem_keys){
             bluebird.map(dem_keys, function(result) {
                 return client.hgetallAsync(result);
