@@ -26,7 +26,7 @@ router.get('/quotes', function(req, res, next) {
         var tags = req.query.tags.split('%20').join('|')
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quotes:*', dem_keys, results, tags).then(
+    scanAsyncTags('0', 'quote:*', dem_keys, results, tags).then(
         function(dem_keys){
             bluebird.map(dem_keys, function(result) {
                 return client.hgetallAsync(result);
@@ -145,10 +145,10 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 console.log(quotes);
                 quotes.every(function(quote, i) {
                     console.log(quote);
-                    console.log(quote.anime.match(regtags));
-                    console.log(quote.char.match(regtags));
-                    console.log(quote.quote.match(regtags));
-                    if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
+                    console.log(regtags.test(quote.anime));
+                    console.log(regtags.test(quote.char));
+                    console.log(regtags.test(quote.quote));
+                    if (regtags.test(quote.anime) || regtags.test(quote.char) || regtags.test(quote.quote)) {
                         returnSet.add(key);
                         return !(count && (returnSet.size >= count))
                     }
