@@ -23,7 +23,7 @@ router.get('/quotes', function(req, res, next) {
         return
     }
     else {
-        var tags = req.query.tags.split('%20').join('|')
+        var tags = req.query.tags.split('%20')
     }
     var result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', dem_keys, results, tags).then(
@@ -132,7 +132,6 @@ function scanAsync(cursor, pattern, returnSet, count){
 
 function scanAsyncTags(cursor, pattern, returnSet, count, tags){
     // tags must be in ARRAY format.
-    var regtags = new RegExp('(' + tags + ')', 'i');
     return client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
         function (reply) {
 
@@ -145,10 +144,10 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                 console.log(quotes);
                 quotes.every(function(quote, i) {
                     console.log(quote);
-                    console.log(regtags.test(quote.anime));
-                    console.log(regtags.test(quote.char));
-                    console.log(regtags.test(quote.quote));
-                    if (regtags.test(quote.anime) || regtags.test(quote.char) || regtags.test(quote.quote)) {
+
+                    if (tags.some(function(v) { return (
+                            quote.anime.indexOf(v) >= 0 || quote.char.indexOf(v) >= 0 || quote.quote.indexOf(v) >= 0
+                        )})) {
                         returnSet.add(key);
                         return !(count && (returnSet.size >= count))
                     }
