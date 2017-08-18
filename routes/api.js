@@ -140,7 +140,7 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
             bluebird.map(keys, function(result) {
                 return client.hgetallAsync(result);
             }).then(function(quotes) {
-                var regtags = '(' + tags + ')';
+                var regtags = new RegExp('(' + tags + ')', 'i');
                 quotes.every(function(quote, i){
                     if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
                         returnSet.add(key);
