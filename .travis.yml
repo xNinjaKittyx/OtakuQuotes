@@ -7,4 +7,6 @@ cache:
     - "node_modules"
 install:
   - npm install
-script: npm start
+  - ./redis_quickstart.sh
+script: 
+  - npm start
