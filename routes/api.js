@@ -12,23 +12,46 @@ client = redis.createClient({'db': 0});
 
 router.get('/quotes', function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
-    if(!req.query.tags){
-        res.status(400).json({'status': 400, 'error': 'No tags were given.'});
-    }
-    else{
-        res.json({
-            'status': 200,
-            'quotes': {
-                'anime': 'Fate/Stay Night',
-                'character': 'Emiya Shirou',
-                'quote': 'People die when they are killed'
-            }
-        });
-    }
+
     var results = 25;
     if(req.query.n){
         results = req.query.n;
     }
+    if(!req.query.tags){
+        res.status(400).json({'status': 400, 'error': 'No tags were given.'})
+    }
+    var result = {'status': 200, 'quotes': []};
+    scanAsync('0', 'quotes:*', dem_keys).then(
+        function(dem_keys){
+            bluebird.map(dem_keys, function(result) {
+                return client.hgetallAsync(result);
+            }).then(function(quotes) {
+                result.quotes = quotes;
+                result.quotes.sort(function (a, b) {
+                    a = Number(a.id);
+                    b = Number(b.id);
+                    if (a < b)
+                        return -1;
+                    if (a > b)
+                        return 1;
+                    return 0
+                });
+                result.quotes = result.quotes.slice(0, count);
+                res.status(200).json(result);
+            }, function(err) {
+                console.log(err);
+                res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+            });
+        }
+    );
+    res.json({
+        'status': 200,
+        'quotes': {
+            'anime': 'Fate/Stay Night',
+            'character': 'Emiya Shirou',
+            'quote': 'People die when they are killed'
+        }
+    });
 
 });
 
@@ -40,6 +63,7 @@ router.get('/random', function(req, res, next) {
             console.log(err);
             res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
         }
+        console.log(reply);
         client.hgetall('quote:' +
             random.integer(1, reply)(engine),
             function(err, reply) {
@@ -89,7 +113,7 @@ router.post('/submit', function(req, res){
     });
 });
 
-function scanAsync(cursor, pattern, returnSet){
+function scanAsync(cursor, pattern, returnSet, count){
 
     return client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
         function (reply) {
@@ -100,11 +124,43 @@ function scanAsync(cursor, pattern, returnSet){
                 returnSet.add(key);
             });
 
-            if( cursor === '0' ){
+            if( cursor === '0' || (count && returnSet.length == count)) {
                 return Array.from(returnSet);
-            }else{
+            }
+            else{
+                    return scanAsync(cursor, pattern, returnSet)
+            }
+
+
+        });
+}
+
+function scanAsyncTags(cursor, pattern, returnSet, count, tags){
+    // tags must be in REGEX format.
+    return client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
+        function (reply) {
+
+            cursor = reply[0];
+            var keys = reply[1];
+            bluebird.map(keys, function(result) {
+                return client.hgetallAsync(result);
+            }).then(function(quotes) {
+                tags = tags.join('|');
+                var regtags = '(' + tags + ')';
+                quotes.forEach(function(quote, i){
+                    if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
+                        returnSet.add(key);
+                    }
+                })
+            });
+
+            if( cursor === '0' || (count && returnSet.length == count)) {
+                return Array.from(returnSet);
+            }
+            else{
                 return scanAsync(cursor, pattern, returnSet)
             }
+
 
         });
 }
@@ -117,7 +173,7 @@ router.get('/pending', function(req, res) {
         count = 10;
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsync('0', 'pending:*', dem_keys).then(
+    scanAsync('0', 'pending:*', dem_keys, count).then(
         function(dem_keys){
             bluebird.map(dem_keys, function(result) {
                 return client.hgetallAsync(result);
@@ -132,7 +188,7 @@ router.get('/pending', function(req, res) {
                         return 1;
                     return 0
                 });
-                result.quotes = result.quotes.slice(0, count);
+                // result.quotes = result.quotes.slice(0, count);
                 res.status(200).json(result);
             }, function(err) {
                 console.log(err);
