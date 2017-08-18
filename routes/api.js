@@ -22,7 +22,7 @@ router.get('/quotes', function(req, res, next) {
         res.status(400).json({'status': 400, 'error': 'No tags were given.'})
     }
     else {
-        var tags = req.query.tags.split('%20')
+        var tags = req.query.tags.split('%20').join('|')
     }
     var result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quotes:*', dem_keys, tags).then(
@@ -47,15 +47,6 @@ router.get('/quotes', function(req, res, next) {
             });
         }
     );
-    res.json({
-        'status': 200,
-        'quotes': {
-            'anime': 'Fate/Stay Night',
-            'character': 'Emiya Shirou',
-            'quote': 'People die when they are killed'
-        }
-    });
-
 });
 
 router.get('/random', function(req, res, next) {
@@ -149,7 +140,6 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
             bluebird.map(keys, function(result) {
                 return client.hgetallAsync(result);
             }).then(function(quotes) {
-                tags = tags.join('|');
                 var regtags = '(' + tags + ')';
                 quotes.every(function(quote, i){
                     if (quote.anime.match(regtags) || quote.char.match(regtags) || quote.quote.match(regtags)) {
