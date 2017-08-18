@@ -133,35 +133,26 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
         function (reply) {
 
             cursor = reply[0];
-            return reply[1];
-        }).then(function(key) {
-            bluebird.map(keys, function(key) {
-                console.log(key);
-                return client.hgetallAsync(key);
-            }).then(function(quotes) {
-                console.log(quotes);
-                quotes.every(function(quote, i) {
-                    console.log(quote);
-                    tags.forEach(function(tag, i) {
-                        if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
-                            console.log(quote);
-                            returnSet.add(quote);
-                        }
-                    });
-                    return !(count && (returnSet.size >= count))
-                });
-                return true
-            }).then (function(lol) {
-                return lol
+            var keys = reply[1];
+            keys.forEach(function (key, i) {
+                client.hgetallAsync(key).then(
+                    function (quote) {
+                        tags.forEach(function (tag, i) {
+                            if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
+                                console.log(quote);
+                                returnSet.add(quote);
+                            }
+                        });
+                    }
+                )
             });
-        }).then(function(lol) {
-            if( cursor === '0' || (count && (returnSet.size >= count))) {
+            if (cursor === '0' || (count && (returnSet.size >= count))) {
                 return Array.from(returnSet);
             }
-            else{
+            else {
                 return scanAsync(cursor, pattern, returnSet)
             }
-        })
+        });
 }
 
 router.get('/pending', function(req, res) {
