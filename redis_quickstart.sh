@@ -4,5 +4,5 @@ tar xvzf redis-stable.tar.gz
 cd redis-stable
 make
 sudo make install
-no-hup redis-server
+nohup redis-server
 # add &>dev/null &
