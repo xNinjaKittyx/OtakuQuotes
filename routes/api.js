@@ -26,8 +26,8 @@ router.get('/quotes', function(req, res, next) {
         var tags = req.query.tags.split('%20')
     }
     var result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quote:*', dem_keys, results, tags).then(
-        function(quotes){
+    scanAsyncTags('0', 'quote:*', dem_keys, results, tags)
+        .then(function(quotes){
             console.log('parsing quotes');
             console.log(quotes);
             result.quotes = quotes;
@@ -150,14 +150,16 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                     return !(count && (returnSet.size >= count))
                 })
                 }
+            ).then(function() {
+                    if( cursor === '0' || (count && (returnSet.size >= count))) {
+                        return Array.from(returnSet);
+                    }
+                    else{
+                        return scanAsync(cursor, pattern, returnSet)
+                    }
+            }
             );
 
-            if( cursor === '0' || (count && (returnSet.size >= count))) {
-                return Array.from(returnSet);
-            }
-            else{
-                return scanAsync(cursor, pattern, returnSet)
-            }
 
 
         });
