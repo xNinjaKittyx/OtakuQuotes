@@ -134,17 +134,19 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 
             cursor = reply[0];
             var keys = reply[1];
-            keys.forEach(function (key, i) {
-                client.hgetallAsync(key).then(
-                    function (quote) {
-                        tags.forEach(function (tag, i) {
-                            if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
-                                console.log(quote);
-                                returnSet.add(quote);
-                            }
-                        });
-                    }
-                )
+            new Promise(function(resolve) {
+                keys.forEach(function (key, i) {
+                    client.hgetallAsync(key).then(
+                        function (quote) {
+                            tags.forEach(function (tag, i) {
+                                if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
+                                    console.log(quote);
+                                    returnSet.add(quote);
+                                }
+                            });
+                        }
+                    )
+                });
             });
             if (cursor === '0' || (count && (returnSet.size >= count))) {
                 return Array.from(returnSet);

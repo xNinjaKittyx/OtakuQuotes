@@ -1,0 +1,25 @@
+<header className="nav">
+                <div className="container">
+<div className="nav-left">
+                    <Link to='/' className="nav-item">OtakuQuotes</Link>
+                  </div>
+                  <div class="navbar-burger burger" data-target="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div className="nav-right nav-menu" id="navMenu">
+                    <Link to='/pending' className="nav-item">Pending</Link>
+                    <Link to='/docs' className="nav-item">Docs</Link>
+                    <Link to='/submit' className="nav-item">Submit</Link>
+                    <span className="nav-item">
+                      <a className="button is-success is-inverted">
+                        <span className="icon">
+                          <i className="fa fa-github"></i>
+                        </span>
+                        <span>Download</span>
+                      </a>
+                    </span>
+                  </div>
+</div>
+</header>

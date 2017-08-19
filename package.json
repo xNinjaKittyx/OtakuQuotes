@@ -1,11 +1,18 @@
 {
-  "name": "express",
-  "version": "0.0.0",
+  "name": "OtakuQuotes",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "express": "node ./bin/www",
+    "react": "set PORT=8080 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "start": "npm-run-all --parallel --continue-on-error express react"
   },
+  "proxy": "http://localhost:3000/",
   "dependencies": {
+    "axios": "^0.16.2",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "bulma": "^0.4.3",
@@ -14,10 +21,19 @@
     "ejs": "~2.5.6",
     "express": "~4.15.2",
     "express-validator": "^3.2.1",
+    "lodash": "^4.17.4",
     "morgan": "~1.8.1",
     "random-js": "^1.0.8",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
     "redis": "^2.7.1",
     "redisscan": "^2.0.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "1.0.10"
   }
 }
