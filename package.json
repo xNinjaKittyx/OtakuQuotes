@@ -6,8 +6,8 @@
     "express": "node ./bin/www",
     "react": "cd client && PORT=8080 react-scripts start",
     "react-win": "cd client && set PORT=8080 && react-scripts start",
-    "start": "npm-run-all --parallel --continue-on-error express react",
-    "start-win": "npm-run-all --parallel --continue-on-error express react-win"
+    "start": "NODE_ENV=production node ./bin/www",
+    "start-win": "set NODE_ENV=production  && node ./bin/www"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
