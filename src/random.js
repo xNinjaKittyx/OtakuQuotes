@@ -11,7 +11,7 @@ class Random extends Component {
   }
 
   tick() {
-    fetch("http://localhost:3000/api/random")
+    fetch("http://69.181.250.99:3000/api/random")
         .then(response => {
             if (!response.ok) {
                 throw Error("Network request failed")

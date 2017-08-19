@@ -27,7 +27,6 @@ app.use(function(req, res, next) {
     next();
 });
 app.use('/api', api);
-app.use('/submit', submit);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

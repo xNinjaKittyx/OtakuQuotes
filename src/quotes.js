@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-const quotetag = tag => `http://localhost:3000/api/pending`;
+const quotetag = tag => `http://69.181.250.99:3000/api/pending`;
 
 class Pending extends Component {
 

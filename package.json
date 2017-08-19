@@ -5,10 +5,12 @@
   "scripts": {
     "express": "node ./bin/www",
     "react": "set PORT=8080 && react-scripts start",
+    "react-linux": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start": "npm-run-all --parallel --continue-on-error express react"
+    "start": "npm-run-all --parallel --continue-on-error express react-linux"
+	"start-win": "npm-run-all --parallel --continue-on-error express react"
   },
   "proxy": "http://localhost:3000/",
   "dependencies": {

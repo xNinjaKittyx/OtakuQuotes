@@ -16,7 +16,7 @@ class Search extends Component {
   }
 
   search(query="Fate") {
-    axios.get(`http://localhost:3000/api/quotes?tags=${query}`)
+    axios.get(`http://69.181.250.99:3000/api/quotes?tags=${query}`)
       .then((response) => {
         this.setState({list: response.data.quotes}, function(){
           console.log(this.state);
