@@ -7,7 +7,7 @@ cache:
   directories:
     - "node_modules"
 install:
-  - npm install
+  - npm i && cd client && npm i && cd ..
   - chmod +x redis_quickstart.sh
   - sudo ./redis_quickstart.sh
 script: 

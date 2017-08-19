@@ -1,0 +1,33 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+#heroimage {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/img/kiminonawa.jpg') center center;
+    background-size:cover;
+}
+
+.is-mainbutton{
+    background-color: transparent;
+    border-color: lightskyblue;
+    color: lightskyblue;
+}
+.is-mainbutton:hover{
+    border-color: deepskyblue;
+    color: deepskyblue;
+}
+.is-secondbutton{
+    background-color: transparent;
+    border-color: whitesmoke;
+    color: whitesmoke;
+}
+.is-secondbutton:hover{
+    border-color: white;
+    color: white;
+}
+
+.topkek {
+    height: 70px;
+}
