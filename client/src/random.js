@@ -5,12 +5,14 @@ class Random extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        requestFailed: false
+        requestFailed: false,
+        transitionFade: false
     };
     this.tick = this.tick.bind(this);
   }
 
   tick() {
+    this.setState({transitionFade: false})
     fetch("http://69.181.250.99:3000/api/random")
         .then(response => {
             if (!response.ok) {
@@ -21,7 +23,7 @@ class Random extends Component {
         .then(d => d.json())
         .then(d => {
             this.setState({
-                quotes: d
+                quotes: d, transitionFade: true
             })
             console.log(this.state);
         })
@@ -38,10 +40,11 @@ class Random extends Component {
   }
 
   render() {
-    if (this.state.requestFailed) return <div className="topkek"><p>Failed</p></div>
-    if (!this.state.quotes) return <div className="topkek"><p>Loading...</p></div>
+    let fadestate = this.state.transitionFade ? "topkek" : "topkekhide"
+    if (this.state.requestFailed) return <div className="topkek"><h2 className="subtitle is-5">"Websites die when they are killed."</h2><h2 className="subtitle is-6">- 404</h2></div>
+    if (!this.state.quotes) return <div className="topkek"><a className="button is-link is-loading">loading</a></div>
     return (
-      <div className="topkek">
+      <div className={fadestate}>
         <h2 className="subtitle is-5">"{this.state.quotes.quotes.quote}"</h2>
         <h2 className="subtitle is-6">- {this.state.quotes.quotes.char}</h2>
       </div>

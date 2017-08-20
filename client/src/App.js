@@ -54,7 +54,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <section className="hero is-primary is-medium" id="heroimage">
+          <section className="hero is-primary is-medium" id="heroback">
             <div className="hero-head">
               <header className="nav">
                   <Navmenu />
@@ -85,9 +85,9 @@ const Home = () => (
       <Random />
       <br />
       <p className="hero-buttons">
-        <a className="button is-mainbutton is-large" href="api/random">
+        <Link to='/search' className="button is-mainbutton is-large">
           <span>Try It Out!</span>
-        </a>
+        </Link>
         <Link to='/docs' className="button is-secondbutton is-large">
           <span>View Docs</span>
         </Link>
