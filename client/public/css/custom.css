@@ -16,6 +16,24 @@ body {
     background: transparent;
 }
 
+.navigation {
+    background: transparent;
+    border-bottom: 1px solid white;
+}
+
+.controltop {
+    margin-top: 10px;
+}
+
+.white {
+    color: #d8d8d8;
+}
+
+.white:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
 .is-mainbutton{
     background-color: transparent;
     border-color: lightskyblue;
