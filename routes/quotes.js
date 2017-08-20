@@ -22,10 +22,13 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
             bluebird.all(commands).then(function(quotes) {
                 console.log(quotes);
                 for (let i = 0; i < quotes.length; i++) {
-                    if (quotes[i].anime.indexOf(tag) >= 0 || quotes[i].char.indexOf(tag) >= 0 || quotes[i].quote.indexOf(tag) >= 0) {
-                        console.log('This quote worked:');
-                        console.log(quotes[i]);
-                        returnSet.add(quotes[i]);
+                    for (let j = 0; j < tags.length; j++) {
+                        if (quotes[i].anime.indexOf(tags[j]) >= 0 || quotes[i].char.indexOf(tags[j]) >= 0 || quotes[i].quote.indexOf(tags[j]) >= 0) {
+                            console.log('This quote worked:');
+                            console.log(quotes[i]);
+                            returnSet.add(quotes[i]);
+                        }
+
                     }
 
                 }
@@ -60,7 +63,7 @@ router.get('', function(req, res, next) {
     }
     let result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', quotes, results, tags)
-        .then(function(){
+        .then(function(quotes){
             console.log('parsing quotes');
             console.log(quotes);
             result.quotes = quotes;
