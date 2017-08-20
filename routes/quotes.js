@@ -16,25 +16,29 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
             let quotes = [];
 
             keys.forEach(function(key, i) {
-                quotes.push(client.hgetallAsync(key))
+                quotes.push(client.hgetallAsync(key));
             });
-            quotes = Promise.all(quotes);
             console.log(quotes);
-            for (let i = 0; i < quotes.length; i++) {
-                if (quotes[i].anime.indexOf(tag) >= 0 || quotes[i].char.indexOf(tag) >= 0 || quotes[i].quote.indexOf(tag) >= 0) {
-                    console.log('This quote worked:');
-                    console.log(quotes[i]);
-                    returnSet.add(quotes[i]);
-                }
+            bluebird.Promise.all(quotes).then(function() {
+                for (let i = 0; i < quotes.length; i++) {
+                    if (quotes[i].anime.indexOf(tag) >= 0 || quotes[i].char.indexOf(tag) >= 0 || quotes[i].quote.indexOf(tag) >= 0) {
+                        console.log('This quote worked:');
+                        console.log(quotes[i]);
+                        returnSet.add(quotes[i]);
+                    }
 
+                }
+            });
+        }).then(
+            function() {
+                if (cursor === '0' || (count && (returnSet.size >= count))) {
+                    return Array.from(returnSet);
+                }
+                else {
+                    return scanAsyncTags(cursor, pattern, returnSet, count, tags)
+                }
             }
-            if (cursor === '0' || (count && (returnSet.size >= count))) {
-                return Array.from(returnSet);
-            }
-            else {
-                return scanAsyncTags(cursor, pattern, returnSet, count, tags)
-            }
-        });
+        )
 }
 
 router.get('', function(req, res, next) {
