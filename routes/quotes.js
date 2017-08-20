@@ -1,48 +1,50 @@
 const express = require('express');
 const router = express.Router();
 const redis = require('redis');
-const bluebird = require('bluebird');
-bluebird.promisifyAll(redis);
+const Promise = require('bluebird');
+Promise.promisifyAll(redis);
 
 const client = redis.createClient({'db': 0});
 
 function scanAsyncTags(cursor, pattern, returnSet, count, tags){
     // tags must be in ARRAY format.
-    return client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
-        function (reply) {
+    return new Promise(function (resolve, reject) {
+        client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
+            function (reply) {
 
-            cursor = reply[0];
-            let keys = reply[1];
-            let commands = [];
+                cursor = reply[0];
+                let keys = reply[1];
+                let commands = [];
 
-            keys.forEach(function(key, i) {
-                commands.push(client.hgetallAsync(key));
-            });
-            console.log(commands);
-            bluebird.all(commands).then(function(quotes) {
-                console.log(quotes);
-                for (let i = 0; i < quotes.length; i++) {
-                    for (let j = 0; j < tags.length; j++) {
-                        if (quotes[i].anime.indexOf(tags[j]) >= 0 || quotes[i].char.indexOf(tags[j]) >= 0 || quotes[i].quote.indexOf(tags[j]) >= 0) {
-                            console.log('This quote worked:');
-                            console.log(quotes[i]);
-                            returnSet.add(quotes[i]);
+                keys.forEach(function(key, i) {
+                    commands.push(client.hgetallAsync(key));
+                });
+                console.log('Setup Commands');
+                Promise.all(commands).then(function(quotes) {
+                    console.log('Received Quotes');
+                    for (let i = 0; i < quotes.length; i++) {
+                        for (let j = 0; j < tags.length; j++) {
+                            if (quotes[i].anime.indexOf(tags[j]) >= 0 || quotes[i].char.indexOf(tags[j]) >= 0 || quotes[i].quote.indexOf(tags[j]) >= 0) {
+                                console.log('This quote worked:');
+                                console.log(quotes[i]);
+                                returnSet.add(quotes[i]);
+                            }
+
                         }
 
                     }
-
-                }
-            });
-        }).then(
+                });
+            }).then(
             function() {
                 if (cursor === '0' || (count && (returnSet.size >= count))) {
-                    return Array.from(returnSet);
+                    resolve(Array.from(returnSet));
                 }
                 else {
-                    return scanAsyncTags(cursor, pattern, returnSet, count, tags)
+                    resolve(scanAsyncTags(cursor, pattern, returnSet, count, tags));
                 }
             }
         )
+    })
 }
 
 router.get('', function(req, res, next) {
