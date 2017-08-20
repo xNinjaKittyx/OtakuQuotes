@@ -17,23 +17,26 @@ class Navmenu extends Component {
   }
 
   render() {
-    let openstate = this.state.navmenuOpen ? "nav-right nav-menu is-active" : "nav-right nav-menu"
+    let openstate = this.state.navmenuOpen ? "navbar-menu is-active" : "navbar-menu"
     return (
+      <div className="navbar navigation">
       <div className="container">
-        <div className="nav-left">
-          <Link to='/' className="nav-item">OtakuQuotes</Link>
+        <div className="navbar-brand">
+          <Link to='/' className="navbar-item white">OtakuQuotes</Link>
         </div>
-        <span className="nav-toggle" onClick={this.handleClick}>
+        <span className="navbar-burger burger" onClick={this.handleClick}>
           <span></span>
           <span></span>
           <span></span>
         </span>
         <div className={openstate}>
-          <Link to='/pending' className="nav-item">Pending</Link>
-          <Link to='/search' className="nav-item">Search</Link>
-          <Link to='/docs' className="nav-item">Docs</Link>
-          <Link to='/submit' className="nav-item">Submit</Link>
-          <span className="nav-item">
+          <div className="navbar-end">
+          <Link to='/about' className="navbar-item white">About</Link>
+          <Link to='/pending' className="navbar-item white">Pending</Link>
+          <Link to='/search' className="navbar-item white">Search</Link>
+          <Link to='/docs' className="navbar-item white">Docs</Link>
+          <Link to='/submit' className="navbar-item white">Submit</Link>
+          <span className="navbar-item">
             <a className="button is-success is-inverted" href="https://github.com/xNinjaKittyx/OtakuQuotes">
               <span className="icon">
                 <i className="fa fa-github"></i>
@@ -41,7 +44,9 @@ class Navmenu extends Component {
               <span>Github</span>
             </a>
           </span>
+          </div>
         </div>
+      </div>
       </div>
     );
   }

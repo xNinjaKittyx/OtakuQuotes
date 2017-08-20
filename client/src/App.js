@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 import Pending from './quotes.js';
 import Search from './search.js';
@@ -54,18 +54,16 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <section className="hero is-primary is-medium" id="heroback">
-            <div className="hero-head">
-              <header className="nav">
-                  <Navmenu />
-              </header>
-            </div>
-            <Route exact path='/' component={Home}/>
-          </section>
-          <MatchWithFade path='/search' component={Search} transition="opacity 3000ms"/>
-          <MatchWithFade path='/pending' component={Pending} transition="opacity 3000ms"/>
-          <MatchWithFade path='/docs' component={Docs} transition="opacity 3000ms"/>
-          <MatchWithFade path='/submit' component={Submit} transition="opacity 3000ms"/>
+          <Navmenu />
+          <Switch>
+            <MatchWithFade exact path='/' component={Home} transition="opacity 3000ms"/>
+            <MatchWithFade path='/search' component={Search} transition="opacity 3000ms"/>
+            <MatchWithFade path='/about' component={About} transition="opacity 3000ms"/>
+            <MatchWithFade path='/pending' component={Pending} transition="opacity 3000ms"/>
+            <MatchWithFade path='/docs' component={Docs} transition="opacity 3000ms"/>
+            <MatchWithFade path='/submit' component={Submit} transition="opacity 3000ms"/>
+            <Route component={NoMatch} />
+          </Switch>
         </div>
       </Router>
     );
@@ -73,6 +71,8 @@ class App extends Component {
 }
 
 const Home = () => (
+  <div>
+  <section className="hero is-primary is-medium" id="heroback">
   <div className="hero-body">
     <div className="container has-text-centered">
       <h1 className="title">
@@ -94,12 +94,28 @@ const Home = () => (
       </p>
     </div>
   </div>
+  </section>
+  </div>
 )
+
+const About = () => (
+  <div className="container">
+    <h1 className="title">About</h1>
+
+  </div>
+);
 
 const Docs = () => (
   <div className="container">
     <h1 className="title">Documentation</h1>
 
+  </div>
+);
+
+const NoMatch = () => (
+  <div className="container">
+    <h1 className="title">Websites die when they are killed.</h1>
+    <h1 className="subtitle"> - 404</h1>
   </div>
 );
 
