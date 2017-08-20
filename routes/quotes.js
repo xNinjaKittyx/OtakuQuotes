@@ -33,17 +33,17 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                         }
 
                     }
-                });
-            }).then(
-            function() {
-                if (cursor === '0' || (count && (returnSet.size >= count))) {
-                    resolve(Array.from(returnSet));
-                }
-                else {
-                    resolve(scanAsyncTags(cursor, pattern, returnSet, count, tags));
-                }
-            }
-        )
+                }).then(
+                    function() {
+                        if (cursor === '0' || (count && (returnSet.size >= count))) {
+                            resolve(Array.from(returnSet));
+                        }
+                        else {
+                            return scanAsyncTags(cursor, pattern, returnSet, count, tags)
+                        }
+                    });
+        })
+
     })
 }
 
@@ -64,25 +64,25 @@ router.get('', function(req, res, next) {
         tags = req.query.tags.split('%20')
     }
     let result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quote:*', quotes, results, tags)
-        .then(function(quotes){
-            console.log('parsing quotes');
-            console.log(quotes);
-            result.quotes = quotes;
-            result.quotes.sort(function (a, b) {
-                a = Number(a.id);
-                b = Number(b.id);
-                if (a < b)
-                    return -1;
-                if (a > b)
-                    return 1;
-                return 0
-            });
-            res.status(200).json(result);
-        }, function(err) {
-            console.log(err);
-            res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+    scanAsyncTags('0', 'quote:*', quotes, results, tags).then(function(quotes){
+
+        console.log('parsing quotes');
+        console.log(quotes);
+        result.quotes = quotes;
+        result.quotes.sort(function (a, b) {
+            a = Number(a.id);
+            b = Number(b.id);
+            if (a < b)
+                return -1;
+            if (a > b)
+                return 1;
+            return 0
         });
+        res.status(200).json(result);
+    }, function(err) {
+        console.log(err);
+        res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+    });
 });
 
 
