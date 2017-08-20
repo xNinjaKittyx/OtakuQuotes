@@ -13,29 +13,27 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 
             cursor = reply[0];
             let keys = reply[1];
-            Promise.all(keys.map(function(key) {
-                return new Promise(function(resolve) {
-                    client.hgetallAsync(key).then(
-                        function (quote) {
-                            tags.forEach(function (tag, i) {
-                                if (quote.anime.indexOf(tag) >= 0 || quote.char.indexOf(tag) >= 0 || quote.quote.indexOf(tag) >= 0) {
-                                    console.log(quote);
-                                    returnSet.add(quote);
-                                }
-                            });
-                            resolve();
-                        }
-                    )
-                });
-            })).then(function() {
+            let quotes = [];
 
-                if (cursor === '0' || (count && (returnSet.size >= count))) {
-                    return Array.from(returnSet);
+            keys.forEach(function(key, i) {
+                quotes.push(client.hgetallAsync(key))
+            });
+            quotes = Promise.all(quotes);
+            console.log(quotes);
+            for (let i = 0; i < quotes.length; i++) {
+                if (quotes[i].anime.indexOf(tag) >= 0 || quotes[i].char.indexOf(tag) >= 0 || quotes[i].quote.indexOf(tag) >= 0) {
+                    console.log('This quote worked:');
+                    console.log(quotes[i]);
+                    returnSet.add(quotes[i]);
                 }
-                else {
-                    return scanAsyncTags(cursor, pattern, returnSet, count, tags)
-                }
-            })
+
+            }
+            if (cursor === '0' || (count && (returnSet.size >= count))) {
+                return Array.from(returnSet);
+            }
+            else {
+                return scanAsyncTags(cursor, pattern, returnSet, count, tags)
+            }
         });
 }
 
