@@ -1,17 +1,20 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 
-var api = require('./routes/api');
-var app = express();
+const pending = require('./routes/pending');
+const quotes = require('./routes/quotes');
+const random = require('./routes/random');
+const submit = require('./routes/submit');
+let app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,11 +31,15 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/api', api);
+app.use('/api/pending', pending);
+app.use('/api/quotes', quotes);
+app.use('/api/random', random);
+app.use('/api/submit', submit);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Websites die when they are killed.');
+  let err = new Error('Websites die when they are killed.');
   err.status = 404;
   next(err);
 });
