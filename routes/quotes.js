@@ -13,13 +13,14 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
 
             cursor = reply[0];
             let keys = reply[1];
-            let quotes = [];
+            let commands = [];
 
             keys.forEach(function(key, i) {
-                quotes.push(client.hgetallAsync(key));
+                commands.push(client.hgetallAsync(key));
             });
-            console.log(quotes);
-            bluebird.Promise.all(quotes).then(function() {
+            console.log(commands);
+            bluebird.all(commands).then(function(quotes) {
+                console.log(quotes);
                 for (let i = 0; i < quotes.length; i++) {
                     if (quotes[i].anime.indexOf(tag) >= 0 || quotes[i].char.indexOf(tag) >= 0 || quotes[i].quote.indexOf(tag) >= 0) {
                         console.log('This quote worked:');
