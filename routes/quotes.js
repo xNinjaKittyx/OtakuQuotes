@@ -47,12 +47,13 @@ router.get('', function(req, res, next) {
     if(req.query.maxResults){
         results = req.query.maxResults;
     }
+    let tags;
     if(!req.query.tags){
         res.status(400).json({'status': 400, 'error': 'No tags were given.'})
         return
     }
     else {
-        let tags = req.query.tags.split('%20')
+        tags = req.query.tags.split('%20')
     }
     let result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', quotes, results, tags)
