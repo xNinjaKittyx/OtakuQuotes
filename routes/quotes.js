@@ -24,7 +24,9 @@ function scanAsyncTags(cursor, pattern, returnSet, count, tags){
                     console.log('Received Quotes');
                     for (let i = 0; i < quotes.length; i++) {
                         for (let j = 0; j < tags.length; j++) {
-                            if (quotes[i].anime.indexOf(tags[j]) >= 0 || quotes[i].char.indexOf(tags[j]) >= 0 || quotes[i].quote.indexOf(tags[j]) >= 0) {
+                            if (quotes[i].anime.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0 ||
+                                quotes[i].char.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0 ||
+                                quotes[i].quote.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0) {
                                 console.log('This quote worked:');
                                 console.log(quotes[i]);
                                 returnSet.add(quotes[i]);
@@ -61,7 +63,7 @@ router.get('', function(req, res, next) {
         return
     }
     else {
-        tags = req.query.tags.split('%20')
+        tags = req.query.tags.split(' ');
     }
     let result = {'status': 200, 'quotes': []};
     scanAsyncTags('0', 'quote:*', quotes, results, tags).then(function(quotes){
