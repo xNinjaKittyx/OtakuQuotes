@@ -8,10 +8,9 @@ cache:
     - "node_modules"
 services:
   - redis-server
-before-install:
+install:
   - chmod +x redis_database.sh
   - ./redis_database.sh
-install:
   - npm i && cd client && npm i && cd ..
   - cd client && npm run build && cd ..
   - python3.5 -m pip install requests
@@ -23,4 +22,5 @@ script:
   - python3.5 test/test_random.py
   
 after-script:
+  - sleep 5
   - killall node
