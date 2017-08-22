@@ -8,25 +8,17 @@ bluebird.promisifyAll(redis);
 const engine = random.engines.mt19937().autoSeed();
 const client = redis.createClient({'db': 0});
 
-router.get('', function(req, res, next) {
+router.get('', async function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
-    client.get('quotecount', function(err, reply) {
-        if(err) {
-            console.log(err);
-            res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
-        }
-        client.hgetall('quote:' +
-            random.integer(1, reply)(engine),
-            function(err, reply) {
-                if(err){
-                    console.log(err);
-                    res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
-                }
-                else {
-                    res.json({'quotes' : reply});
-                }
-            });
-    });
+    try {
+        const quote_count = await client.getAsync('quotecount');
+        const quote = await client.hgetallAsync('quote:' + random.integer(1, quote_count)(engine));
+
+        res.json({'quotes' : quote});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+    }
 });
 
 module.exports = router;

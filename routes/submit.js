@@ -7,7 +7,7 @@ bluebird.promisifyAll(redis);
 const client = redis.createClient({'db': 0});
 /* GET Quotes API. */
 
-router.post('', function(req, res){
+router.post('', async function(req, res){
     res.locals.title = 'AnimeQuotes';
     let anime = req.body.anime;
     let char = req.body.char;
@@ -17,29 +17,21 @@ router.post('', function(req, res){
     if (!(anime && char && quote && episode && submitter)) {
         res.status(400).json({'status': 400, 'error': 'Invalid Request'})
     }
-    client.incr('submitted_quotes', function(err, reply){
-        if(err) {
-            console.log(err);
-            res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
-            return
-        }
-        client.hmset('pending:' + reply, [
-            'id', reply,
+    try {
+        const submitted_quotes = await client.incrAsync('submitted_quotes');
+        await client.hmsetAsync('pending:' + submitted_quotes, [
+            'id', submitted_quotes,
             'anime', anime,
             'char', char,
             'quote', quote,
             'episode', episode,
             'submitter', submitter
-        ], function(err, reply) {
-            if(err) {
-                console.log(err);
-                res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
-                return
-            }
-            console.log(reply);
-            res.status(200).json({'status': 200});
-        });
-    });
+        ]);
+        res.status(200).json({'status': 200});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
+    }
 });
 
 module.exports = router;

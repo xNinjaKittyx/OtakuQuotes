@@ -6,71 +6,59 @@ Promise.promisifyAll(redis);
 
 const client = redis.createClient({'db': 0});
 
-function scanAsyncTags(cursor, pattern, returnSet, count, tags){
+async function scanAsyncTags(cursor, pattern, returnSet, count, tags){
     // tags must be in ARRAY format.
-    return new Promise(function (resolve, reject) {
-        client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100").then(
-            function (reply) {
+    const reply = await client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100");
+    const new_cursor = reply[0];
+    const keys = reply[1];
+    const commands = [];
+    for (let key of keys) {
+        commands.push(client.hgetallAsync(key))
+    }
+    const quotes = await Promise.all(commands);
 
-                cursor = reply[0];
-                let keys = reply[1];
-                let commands = [];
+    for (let quote of quotes) {
+        if (tags.length === 0) {
+            returnSet.add(quote);
+        } else {
+            for (let tag of tags) {
+                if (quote.anime.toLowerCase().indexOf(tag.toLowerCase()) >= 0 ||
+                    quote.char.toLowerCase().indexOf(tag.toLowerCase()) >= 0 ||
+                    quote.quote.toLowerCase().indexOf(tag.toLowerCase()) >= 0) {
+                    returnSet.add(quote);
+                }
+            }
+        }
+        if (returnSet.size >= count) {
+            return Array.from(returnSet)
+        }
+    }
 
-                keys.forEach(function(key, i) {
-                    commands.push(client.hgetallAsync(key));
-                });
-                console.log('Setup Commands');
-                Promise.all(commands).then(function(quotes) {
-                    console.log('Received Quotes');
-                    for (let i = 0; i < quotes.length; i++) {
-                        for (let j = 0; j < tags.length; j++) {
-                            if (quotes[i].anime.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0 ||
-                                quotes[i].char.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0 ||
-                                quotes[i].quote.toLowerCase().indexOf(tags[j].toLowerCase()) >= 0) {
-                                console.log('This quote worked:');
-                                console.log(quotes[i]);
-                                returnSet.add(quotes[i]);
-                            }
-
-                        }
-
-                    }
-                }).then(
-                    function() {
-                        if (cursor === '0' || (count && (returnSet.size >= count))) {
-                            resolve(Array.from(returnSet));
-                        }
-                        else {
-                            return scanAsyncTags(cursor, pattern, returnSet, count, tags)
-                        }
-                    });
-        })
-
-    })
+    if (new_cursor === '0' || (count && (returnSet.size >= count))) {
+        return Array.from(returnSet);
+    }
+    else {
+        return await scanAsyncTags(new_cursor, pattern, returnSet, count, tags)
+    }
 }
 
-router.get('', function(req, res, next) {
+router.get('', async function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
 
     let quotes = new Set();
     let results = 25;
-    if(req.query.maxResults){
-        results = req.query.maxResults;
+    if(req.query.limit){
+        results = req.query.limit;
     }
-    let tags;
-    if(!req.query.tags){
-        res.status(400).json({'status': 400, 'error': 'No tags were given.'})
-        return
-    }
-    else {
+    let tags = [];
+    if(req.query.tags){
         tags = req.query.tags.split(' ');
     }
-    let result = {'status': 200, 'quotes': []};
-    scanAsyncTags('0', 'quote:*', quotes, results, tags).then(function(quotes){
 
+    let result = {'status': 200, 'quotes': []};
+    try {
+        result.quotes = await scanAsyncTags('0', 'quote:*', quotes, results, tags);
         console.log('parsing quotes');
-        console.log(quotes);
-        result.quotes = quotes;
         result.quotes.sort(function (a, b) {
             a = Number(a.id);
             b = Number(b.id);
@@ -81,10 +69,11 @@ router.get('', function(req, res, next) {
             return 0
         });
         res.status(200).json(result);
-    }, function(err) {
+
+    } catch (err) {
         console.log(err);
         res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
-    });
+    }
 });
 
 
