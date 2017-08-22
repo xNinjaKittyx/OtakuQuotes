@@ -11,7 +11,6 @@ async function scanAsync(cursor, pattern, returnSet, count){
     const new_cursor = reply[0];
     const keys = reply[1];
     for (let key of keys) {
-        console.log(key);
         returnSet.add(key);
         if (returnSet.size >= count) {
             break

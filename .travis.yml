@@ -6,12 +6,20 @@ node_js:
 cache:
   directories:
     - "node_modules"
+services:
+  - redis-server
+before-install:
+  - chmod +x redis_database.sh
+  - ./redis_database.sh
 install:
   - npm i && cd client && npm i && cd ..
   - cd client && npm run build && cd ..
-  - chmod +x redis_quickstart.sh
-  - sudo ./redis_quickstart.sh
 script: 
   - npm start &
+  - sleep 2
+  - python3.5 test/test_pending.py
+  - python3.5 test/test_quotes.py
+  - python3.5 test/test_random.py
+  
 after-script:
   - killall node

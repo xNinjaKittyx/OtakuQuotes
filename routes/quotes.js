@@ -58,7 +58,6 @@ router.get('', async function(req, res, next) {
     let result = {'status': 200, 'quotes': []};
     try {
         result.quotes = await scanAsyncTags('0', 'quote:*', quotes, results, tags);
-        console.log('parsing quotes');
         result.quotes.sort(function (a, b) {
             a = Number(a.id);
             b = Number(b.id);
