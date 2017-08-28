@@ -16,7 +16,7 @@ async function scanAsync(cursor, pattern, returnSet, count){
             break
         }
     }
-    if (cursor === 0 || returnSet.size >= count) {
+    if (cursor === '0' || cursor === 0 || returnSet.size >= count) {
         return Array.from(returnSet)
     }
     else {

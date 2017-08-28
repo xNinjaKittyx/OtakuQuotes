@@ -34,7 +34,7 @@ async function scanAsyncTags(cursor, pattern, returnSet, count, tags){
         }
     }
 
-    if (new_cursor === '0' || (count && (returnSet.size >= count))) {
+    if (new_cursor === '0' || cursor === 0 || (count && (returnSet.size >= count))) {
         return Array.from(returnSet);
     }
     else {
