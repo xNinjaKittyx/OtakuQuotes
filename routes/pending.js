@@ -24,6 +24,25 @@ async function scanAsync(cursor, pattern, returnSet, count){
     }
 
 }
+router.param('id', async function(req, res, next, id)  {
+    try {
+        let result = {'status': 200, 'quote': null};
+        result.quote = await client.hgetallAsync('pending:' + id);
+        if (result.quote === null) {
+            next();
+        }
+        else {
+            res.status(200).json(result)
+        }
+    } catch (err) {
+        next();
+    }
+});
+
+router.get('/:id', async function(req, res, next) {
+    console.log('Calling router.get');
+    next();
+});
 
 router.get('', async function(req, res) {
     res.locals.title = 'AnimeQuotes';

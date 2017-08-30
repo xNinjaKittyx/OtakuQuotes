@@ -42,6 +42,21 @@ async function scanAsyncTags(cursor, pattern, returnSet, count, tags){
     }
 }
 
+router.param('id', async function(req, res, next, id)  {
+    try {
+        let result = {'status': 200, 'quote': null};
+        result.quote = await client.hgetallAsync('quote:' + id);
+        res.status(200).json(result)
+    } catch (err) {
+        next();
+    }
+});
+
+router.get('/:id', async function(req, res, next) {
+    console.log('Calling router.get');
+    next();
+});
+
 router.get('', async function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
 
