@@ -7,7 +7,7 @@ const AnimeList = (kek) => (
   <article className="media">
   <figure className="media-left">
     <div className="thumbcontainer">
-      <img src={kek.kek.img} className="thumbnail"/>
+      <img src={kek.kek.img} className="thumbnail" alt={kek.kek.id}/>
     </div>
   </figure>
   <div className="media-content">
