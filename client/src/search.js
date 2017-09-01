@@ -2,20 +2,43 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 
+const AnimeList = (kek) => (
+  <div className="box">
+  <article className="media">
+  <figure className="media-left">
+    <div className="thumbcontainer">
+      <img src={kek.kek.img} className="thumbnail" alt={kek.kek.id}/>
+    </div>
+  </figure>
+  <div className="media-content">
+    <div className="content">
+      <p>
+        <strong>{kek.kek.char}</strong> <small>{kek.kek.anime}</small>
+        <br />
+        "{kek.kek.quote}"
+      </p>
+    </div>
+  </div>
+</article>
+</div>
+);
+
 class Search extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      list: []
     };
   }
 
   componentWillMount() {
-    this.search();
+    const queryString = require('query-string');
+    var parsed = queryString.parse(this.props.location.search);
+    console.log(parsed.tags);
+    this.search(parsed.tags);
   }
 
-  search(query="Fate") {
+  search(query) {
     axios.get(`http://69.181.250.99:3000/api/quotes?tags=${query}`)
       .then((response) => {
         this.setState({list: response.data.quotes}, function(){
@@ -32,25 +55,25 @@ class Search extends Component {
   }
 
   render() {
+    if (!this.state.list) return <div className="container has-text-centered"><a className="button is-large is-link is-loading">loading</a></div>
     var quotelist = _.map(this.state.list, (x) => {
-      return <tr><td>{x.anime}</td><td>{x.character}</td><td>{x.quote}</td></tr>;
+      return <AnimeList key={x.id} kek={x} />
     });
     return (
-      <div className="container">
-        <input ref="query" onChange={ (e) => { this.textChange(); } } type="text" />
-        <h2> {this.state.list.anime} </h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Anime</th>
-              <th>Character</th>
-              <th>Quote</th>
-            </tr>
-          </thead>
-        <tbody>
-        {quotelist}
-        </tbody>
-        </table>
+      <div>
+        <div className="columns is-mobile">
+          <div className="column is-half is-offset-one-quarter">
+            <br />
+            <div className="field">
+              <div className="control">
+                <input ref="query" onChange={ (e) => { this.textChange(); } } type="text" className="input is-medium"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          {quotelist}
+        </div>
       </div>
     );
   }

@@ -53,7 +53,7 @@ class Submit extends Component {
         <div className="field">
         <div className="control">
             <label className="checkbox">
-            <input type="checkbox" /> I agree to the <a href="terms">terms and conditions</a>
+            <input type="checkbox" /> I agree to the <a>terms and conditions</a>
             </label>
         </div>
         </div>

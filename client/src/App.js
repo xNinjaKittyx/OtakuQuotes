@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 import Pending from './quotes.js';
@@ -7,40 +6,6 @@ import Search from './search.js';
 import Random from './random.js';
 import Submit from './submit.js';
 import Navmenu from './navmenu.js';
-
-class FadeIn extends Component {
-
-  componentDidMount() {
-    console.log("componentDidMount", this.displayName);
-    var that = this;
-    // Get the components DOM node
-    var elem = ReactDOM.findDOMNode(that);
-    // Set the opacity of the element to 0
-    elem.style.opacity = 0;
-    window.requestAnimationFrame(function () {
-      // Now set a transition on the opacity
-      elem.style.transition = that.props.transition || "opacity 5000ms";
-      // and set the opacity to 1
-      elem.style.opacity = 1;
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
-  }
-}
-
-const MatchWithFade = ({ component: Component, transition, ...rest }) => (
-  <Route {...rest} render={(matchProps) => (
-    <FadeIn transition={transition}>
-      <Component {...matchProps} />
-    </FadeIn>
-  )} />
-)
 
 class App extends Component {
 
@@ -56,12 +21,12 @@ class App extends Component {
         <div className="App">
           <Navmenu />
           <Switch>
-            <MatchWithFade exact path='/' component={Home} transition="opacity 3000ms"/>
-            <MatchWithFade path='/search' component={Search} transition="opacity 3000ms"/>
-            <MatchWithFade path='/about' component={About} transition="opacity 3000ms"/>
-            <MatchWithFade path='/pending' component={Pending} transition="opacity 3000ms"/>
-            <MatchWithFade path='/docs' component={Docs} transition="opacity 3000ms"/>
-            <MatchWithFade path='/submit' component={Submit} transition="opacity 3000ms"/>
+            <Route exact path='/' component={Home}/>
+            <Route path='/search' component={Search}/>
+            <Route path='/about' component={About}/>
+            <Route path='/pending' component={Pending}/>
+            <Route path='/docs' component={Docs}/>
+            <Route path='/submit' component={Submit}/>
             <Route component={NoMatch} />
           </Switch>
         </div>
