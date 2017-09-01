@@ -6,6 +6,7 @@ x['char'] = input('Character Name: ')
 x['anime'] = input('Name of Anime: ')
 x['episode'] = input('Episode: ')
 x['submitter'] = input('Your Name or Alias: ')
+x['img'] = input('Name ')
 
 r = requests.post('http://69.181.250.99:3000/api/submit', data=x)
 
