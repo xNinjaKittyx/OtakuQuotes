@@ -1,8 +1,10 @@
 dist: trusty
-sudo: enabled
+sudo: false
 language: node_js
 node_js:
   - "node"
+python:
+  - "3.6"
 cache:
   directories:
     - "node_modules"
@@ -13,13 +15,13 @@ install:
   - ./redis_database.sh
   - npm i && cd client && npm i && cd ..
   - cd client && npm run build && cd ..
-  - python3.5 -m pip install requests
+  - python3.6 -m pip install requests
 script: 
   - npm start &
   - sleep 2
-  - python3.5 test/test_pending.py
-  - python3.5 test/test_quotes.py
-  - python3.5 test/test_random.py
+  - python3.6 test/test_pending.py
+  - python3.6 test/test_quotes.py
+  - python3.6 test/test_random.py
   
 after-script:
   - sleep 5
