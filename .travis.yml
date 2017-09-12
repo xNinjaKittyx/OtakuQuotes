@@ -15,7 +15,7 @@ install:
   - ./redis_database.sh
   - npm i && cd client && npm i && cd ..
   - cd client && npm run build && cd ..
-  - python3.6 -m pip install requests
+  - python3 -m pip install requests
 script: 
   - npm start &
   - sleep 2
