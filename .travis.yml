@@ -4,7 +4,7 @@ language: node_js
 node_js:
   - "node"
 python:
-  - 3.6
+  - "3.6"
 cache:
   directories:
     - "node_modules"
@@ -19,9 +19,9 @@ install:
 script: 
   - npm start &
   - sleep 2
-  - python3.6 test/test_pending.py
-  - python3.6 test/test_quotes.py
-  - python3.6 test/test_random.py
+  - python3 test/test_pending.py
+  - python3 test/test_quotes.py
+  - python3 test/test_random.py
   
 after-script:
   - sleep 5
