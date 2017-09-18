@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Navmenu extends Component {
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         navmenuOpen: false,
-        value:''
+        value: '',
+        fireRedirect: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-    handleClick() {
+
+  handleClick() {
     this.setState({
       navmenuOpen: !this.state.navmenuOpen,
     });
-
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: event.target.value})
+    this.setState({fireRedirect: false});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({fireRedirect: true});
   }
 
   render() {
@@ -32,21 +39,22 @@ class Navmenu extends Component {
         <div className="container">
         <div className="navbar-brand">
           <Link to='/' className="navbar-item white">OtakuQuotes</Link>
+
+          <form onSubmit={this.handleSubmit}>
             <div className="field has-addons controltop">
               <div className="control">
                 <input className="input" placeholder="Search" value={this.state.value} onChange={this.handleChange}/>
               </div>
               <div className="control">
-                <Link to={{
-            pathname: '/search',
-            search: '?tags=' + this.state.value
-          }} className="button is-primary" onClick={this.forceUpdate}>
+                <a className="button is-primary" type="submit" onClick={this.handleSubmit}>
                   <span className="icon is-small is-left">
                       <i className="fa fa-search"></i>
                   </span>
-                  </Link>
+                </a>
               </div>
             </div>
+          </form>
+
           <div className="navbar-burger white" onClick={this.handleClick}>
             <span></span>
             <span></span>
@@ -56,7 +64,6 @@ class Navmenu extends Component {
         <div className={openstate}>
           <div className="navbar-end">
             <Link to='/about' className="navbar-item white">About</Link>
-            <Link to='/pending' className="navbar-item white">Pending</Link>
             <Link to='/docs' className="navbar-item white">Docs</Link>
             <Link to='/submit' className="navbar-item white">Submit</Link>
             <span className="navbar-item">
@@ -71,6 +78,16 @@ class Navmenu extends Component {
         </div>
         </div>
       </nav>
+
+      {
+        this.state.fireRedirect &&
+        <Redirect to={{
+          pathname: '/search',
+          state: { initial: this.state.value },
+          search: '?=' + this.state.value
+        }} />
+      }
+
       </div>
     );
   }
