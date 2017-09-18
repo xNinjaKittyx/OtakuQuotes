@@ -28,18 +28,24 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      current: ''
     };
   }
 
   componentWillMount() {
-    const queryString = require('query-string');
-    var parsed = queryString.parse(this.props.location.search);
-    console.log(parsed.tags);
-    this.search(parsed.tags);
+    this.search(this.props.location.state.initial);
+    this.setState({current: this.props.location.state.initial});
+  }
+
+  componentDidUpdate() {
+    if (this.state.current !== this.props.location.state.initial) {
+      this.search(this.props.location.state.initial);
+      this.setState({current: this.props.location.state.initial});
+    }
   }
 
   search(query) {
-    axios.get(`http://69.181.250.99:3000/api/quotes?tags=${query}`)
+    axios.get(`http://otakuquotes.me/api/quotes?tags=${query}`)
       .then((response) => {
         this.setState({list: response.data.quotes}, function(){
           console.log(this.state);

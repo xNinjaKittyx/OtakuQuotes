@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
-import Pending from './quotes.js';
-import Search from './search.js';
-import Random from './random.js';
-import Submit from './submit.js';
-import Navmenu from './navmenu.js';
+import Search from './components/search.js';
+import Random from './components/random.js';
+import Submit from './components/submit.js';
+import Navmenu from './components/navmenu.js';
 
 class App extends Component {
 
@@ -19,12 +18,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navmenu />
+          <Navmenu/>
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/search' component={Search}/>
+            <Route path='/search' component={Search} />
             <Route path='/about' component={About}/>
-            <Route path='/pending' component={Pending}/>
             <Route path='/docs' component={Docs}/>
             <Route path='/submit' component={Submit}/>
             <Route component={NoMatch} />
