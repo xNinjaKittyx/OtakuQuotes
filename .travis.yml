@@ -16,7 +16,8 @@ install:
   - sudo add-apt-repository ppa:jonathonf/python-3.6 -y
   - sudo apt-get update
   - sudo apt-get install python3.6 python3-pip
-  - python3.6 -m pip install requests
+  - sudo pip3 install --upgrade pip
+  - sudo pip install requests
 script: 
   - npm start &
   - sleep 2
