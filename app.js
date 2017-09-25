@@ -10,7 +10,7 @@ const pending = require('./routes/pending');
 const quotes = require('./routes/quotes');
 const random = require('./routes/random');
 const submit = require('./routes/submit');
-let app = express();
+const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +25,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
 // app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -36,7 +36,7 @@ app.use('/api/quotes', quotes);
 app.use('/api/random', random);
 app.use('/api/submit', submit);
 
-app.get('/*', function(req, res) {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 

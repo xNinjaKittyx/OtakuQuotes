@@ -4,4 +4,5 @@ public/stylesheets/Resources/*
 public/stylesheets/SubsetOTF/*
 .idea/
 node_modules/
-public/ 
+public/
+config/config.json
