@@ -7,7 +7,7 @@ const request = require('request')
 
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 bluebird.promisifyAll(redis);
-const client = redis.createClient({'db': 0});
+const client = redis.createClient('6379', 'redis-server', {'db': 0});
 /* GET Quotes API. */
 
 router.post('', async function(req, res){

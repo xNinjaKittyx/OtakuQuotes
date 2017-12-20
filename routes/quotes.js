@@ -4,7 +4,7 @@ const redis = require('redis');
 const Promise = require('bluebird');
 Promise.promisifyAll(redis);
 
-const client = redis.createClient({'db': 0});
+const client = redis.createClient('6379', 'redis-server', {'db': 0});
 
 async function scanAsyncTags(cursor, pattern, returnSet, count, tags){
     // tags must be in ARRAY format.
