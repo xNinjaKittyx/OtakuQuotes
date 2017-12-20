@@ -1,4 +1,3 @@
-// Do not use this file. Copy it and rename it to config.json before using.
 {
   "CaptchaSecret": ""
 }
