@@ -6,8 +6,9 @@
     "express": "node ./bin/www",
     "react": "cd client && PORT=8080 react-scripts start",
     "react-win": "cd client && set PORT=8080 && react-scripts start",
-    "start": "NODE_ENV=production node ./bin/www",
-    "start-win": "set NODE_ENV=production  && node ./bin/www"
+    "test-start": "NODE_ENV=production node ./bin/www localhost",
+    "start": "NODE_ENV=production node ./bin/www redis-server",
+    "start-win": "set NODE_ENV=production && node ./bin/www"
   },
   "dependencies": {
     "bluebird": "^3.5.0",

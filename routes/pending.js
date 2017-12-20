@@ -4,7 +4,7 @@ const redis = require('redis');
 const Promise = require('bluebird');
 
 Promise.promisifyAll(redis);
-const client = redis.createClient('6379', 'redis-server', {'db': 0});
+const client = redis.createClient('6379', process.argv[process.argv.length-1], {'db': 0});
 
 async function scanAsync(cursor, pattern, returnSet, count){
     const reply = await client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100");
