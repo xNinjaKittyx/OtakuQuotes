@@ -4,21 +4,33 @@
 
 Website and REST API for Anime/Manga Quotes.
 
+## Usage
 
+###`GET /api/random`
 
+GET a random anime quote.
 
-## Setup
+###`GET /api/quotes`
 
-- Install Node.JS - https://nodejs.org/en/ (LTS version currently. May change)
-- Recommend using IntelliJ - https://www.jetbrains.com/idea/ (Free for Students)
-- Install Express NPM (Included with IntelliJ) `npm install express`
-- Run www.js
+GET a quote given some tag. Separated by spaces.
 
+Example: `GET /api/quotes?tags=Kaiki%20Deishuu`
 
-### Project Staff
+###`GET /api/quotes/:id`
 
-- @jonathanh137
-- @jsyi1995
-- @TPBvirus
+GET a quote from an ID.
 
-### Extra Thanks To 
+Example: `GET /api/quotes/1`
+
+## Development
+
+WIP
+
+## Project Staff:
+
+- [@xNinjaKittyx](https://github.com/xNinjaKittyx/)
+- [@jsyi1995](https://github.com/jsyi1995)
+
+## Extra Thanks To:
+
+- [@jonathanh137](https://github.com/jonathanh137)
