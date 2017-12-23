@@ -18,7 +18,6 @@ install:
   - sudo apt-get install python3.6 python3-pip
   - sudo pip3 install --upgrade pip
   - sudo pip install requests
-  - cp config/sample_config.json config/config.json
 script: 
   - npm run test-start &
   - sleep 2
