@@ -1,8 +1,3 @@
-public/stylesheets/GlyphComplements/*
-public/stylesheets/OTF/*
-public/stylesheets/Resources/*
-public/stylesheets/SubsetOTF/*
 .idea/
 node_modules/
-public/
 config/config.json
