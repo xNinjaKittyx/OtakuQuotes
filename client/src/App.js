@@ -42,7 +42,7 @@ const Home = () => (
         OtakuQuotes
       </h1>
       <h2 className="subtitle">
-        A RESTFUL API to grab your favorite quotes to show your power level!
+        A RESTful API to grab your favorite quotes to show your power level!
       </h2>
       <br />
       <Random />
