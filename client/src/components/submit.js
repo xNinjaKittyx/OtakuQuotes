@@ -11,6 +11,7 @@ class Submit extends Component {
 
   render() {
     return (
+
     <div className="columns is-mobile">
     <div className="column is-half is-offset-one-quarter">
         <br />
