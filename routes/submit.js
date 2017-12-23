@@ -5,7 +5,6 @@ const bluebird = require('bluebird');
 const fs = require('fs');
 const request = require('request');
 
-const config = JSON.parse(fs.readFileSync('./config/config.json'));
 bluebird.promisifyAll(redis);
 const client = redis.createClient(process.env.REDIS_URL);
 /* GET Quotes API. */
@@ -19,7 +18,7 @@ router.post('', async function(req, res){
         return res.json({'status': 400, 'success': false, 'message': 'No Captcha Was Found.'});
     }
 
-    const secret_key = config.CaptchaSecret;
+    const secret_key = process.env.CAPTCHA_SECRET;
 
     const verify_url = `https://google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
 
