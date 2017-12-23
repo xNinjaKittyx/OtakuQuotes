@@ -6,8 +6,9 @@
     "express": "node ./bin/www",
     "react": "cd client && PORT=8080 react-scripts start",
     "react-win": "cd client && set PORT=8080 && react-scripts start",
-    "test-start": "NODE_ENV=production node ./bin/www localhost",
-    "start": "NODE_ENV=production node ./bin/www redis-server",
+    "test-start": "NODE_ENV=production node ./bin/www",
+    "start": "NODE_ENV=production node ./bin/www",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "start-win": "set NODE_ENV=production && node ./bin/www"
   },
   "dependencies": {

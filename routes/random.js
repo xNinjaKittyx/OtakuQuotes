@@ -6,7 +6,7 @@ const bluebird = require('bluebird');
 
 bluebird.promisifyAll(redis);
 const engine = random.engines.mt19937().autoSeed();
-const client = redis.createClient('6379', process.argv[process.argv.length-1], {'db': 0});
+const client = redis.createClient(process.env.REDIS_URL);
 
 router.get('', async function(req, res, next) {
     res.locals.title = 'AnimeQuotes';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-const quotetag = tag => `http://otakuquotes.com/api/pending`
+const quotetag = tag => `/api/pending`
 
 class Pending extends Component {
 

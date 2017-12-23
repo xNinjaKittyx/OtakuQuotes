@@ -3,11 +3,11 @@ const router = express.Router();
 const redis = require('redis');
 const bluebird = require('bluebird');
 const fs = require('fs');
-const request = require('request')
+const request = require('request');
 
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 bluebird.promisifyAll(redis);
-const client = redis.createClient('6379', process.argv[process.argv.length-1], {'db': 0});
+const client = redis.createClient(process.env.REDIS_URL);
 /* GET Quotes API. */
 
 router.post('', async function(req, res){
