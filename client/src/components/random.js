@@ -13,7 +13,7 @@ class Random extends Component {
 
   tick() {
     this.setState({transitionFade: false})
-    fetch("http://otakuquotes.me/api/random")
+    fetch("http://otakuquotes.com/api/random")
         .then(response => {
             if (!response.ok) {
                 throw Error("Network request failed")

@@ -6,9 +6,9 @@ x['char'] = input('Character Name: ')
 x['anime'] = input('Name of Anime: ')
 x['episode'] = input('Episode: ')
 x['submitter'] = input('Your Name or Alias: ')
-x['img'] = input('Name ')
+x['img'] = input('Image: ')
 
-r = requests.post('http://69.181.250.99:3000/api/submit', data=x)
+r = requests.post('http://otakuquotes.com:82/api/submit', data=x)
 
 if (r.status_code == 200):
     input('Thanks for submitting!')

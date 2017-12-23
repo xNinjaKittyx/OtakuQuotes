@@ -45,7 +45,7 @@ class Search extends Component {
   }
 
   search(query) {
-    axios.get(`http://otakuquotes.me/api/quotes?tags=${query}`)
+    axios.get(`http://otakuquotes.com/api/quotes?tags=${query}`)
       .then((response) => {
         this.setState({list: response.data.quotes}, function(){
           console.log(this.state);

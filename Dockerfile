@@ -1,11 +1,22 @@
-FROM node:alpine
+FROM node:latest
+ENV NPM_CONFIG_LOGLEVEL info
 
-WORKDIR /app
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app
 
-ADD . /app
+RUN mkdir -p /tmp/client/
+ADD client/package.json /tmp/client/package.json
+RUN cd /tmp/client && npm install
+RUN mkdir -p /opt/app/client && cp -a /tmp/client/node_modules /opt/app/client
 
-RUN npm i && cd client && npm i && cd ..
+WORKDIR /opt/app
+ADD . /opt/app
+
+RUN cd /opt/app/client && npm run-script build && ls
 
 ENV NAME OtakuQuotes
 
-CMD ["npm", "start"]
+EXPOSE 3000
+
+ENTRYPOINT cd /opt/app && npm start localhost
