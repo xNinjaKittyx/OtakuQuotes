@@ -8,6 +8,8 @@ cache:
     - "node_modules"
 services:
   - redis-server
+env:
+  - REDIS_URL="localhost"
 install:
   - chmod +x redis_database.sh
   - ./redis_database.sh
