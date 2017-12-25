@@ -1,7 +1,7 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+@import 'https://fonts.googleapis.com/css?family=Catamaran:300,400,500';
 
 html { 
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/kiminonawa.jpg') no-repeat center center fixed;
+    background: #d8d8d8 url('/img/bg.png') repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -9,7 +9,7 @@ html {
   }
 
 body {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Catamaran", "Helvetica", "Arial", sans-serif;
 }
 
 #heroback {
@@ -18,7 +18,9 @@ body {
 
 .navigation {
     background: transparent;
-    border-bottom: 1px solid white;
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222;
 }
 
 .controltop {
@@ -35,22 +37,18 @@ body {
 }
 
 .is-mainbutton{
-    background-color: transparent;
-    border-color: lightskyblue;
-    color: lightskyblue;
+    background: #5D6361;
+    color: white;
 }
 .is-mainbutton:hover{
-    border-color: deepskyblue;
-    color: deepskyblue;
-}
-.is-secondbutton{
-    background-color: transparent;
-    border-color: whitesmoke;
     color: whitesmoke;
 }
-.is-secondbutton:hover{
-    border-color: white;
+.is-secondbutton{
+    background: #5D6361;
     color: white;
+}
+.is-secondbutton:hover{
+    color: whitesmoke;
 }
 
 .topkek {
@@ -71,10 +69,6 @@ body {
     left: 0;
     right: 0;
     z-index: 1;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/img/kiminonawa.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

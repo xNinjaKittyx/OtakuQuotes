@@ -38,7 +38,7 @@ class Navmenu extends Component {
       <nav className="navbar navigation">
         <div className="container">
         <div className="navbar-brand">
-          <Link to='/' className="navbar-item white">OtakuQuotes</Link>
+          <Link to='/' className="navbar-item is-dark is-size-4"><img src="/android-chrome-512x512.png" alt="The Best Anime Quotes Around"/><b>OtakuQuotes</b></Link>
 
           <form onSubmit={this.handleSubmit}>
             <div className="field has-addons controltop">
@@ -46,7 +46,7 @@ class Navmenu extends Component {
                 <input className="input" placeholder="Search" value={this.state.value} onChange={this.handleChange}/>
               </div>
               <div className="control">
-                <a className="button is-primary" type="submit" onClick={this.handleSubmit}>
+                <a className="button is-dark" type="submit" onClick={this.handleSubmit}>
                   <span className="icon is-small is-left">
                       <i className="fa fa-search"></i>
                   </span>
@@ -55,7 +55,7 @@ class Navmenu extends Component {
             </div>
           </form>
 
-          <div className="navbar-burger white" onClick={this.handleClick}>
+          <div className="navbar-burger is-dark" onClick={this.handleClick}>
             <span></span>
             <span></span>
             <span></span>
@@ -63,11 +63,11 @@ class Navmenu extends Component {
         </div>
         <div className={openstate}>
           <div className="navbar-end">
-            <Link to='/about' className="navbar-item white">About</Link>
-            <Link to='/docs' className="navbar-item white">Docs</Link>
-            <Link to='/submit' className="navbar-item white">Submit</Link>
+            <Link to='/about' className="navbar-item is-dark">About</Link>
+            <Link to='/docs' className="navbar-item is-dark">Docs</Link>
+            <Link to='/submit' className="navbar-item is-dark">Submit</Link>
             <span className="navbar-item">
-              <a className="button is-success is-inverted" href="https://github.com/xNinjaKittyx/OtakuQuotes">
+              <a className="button is-success" href="https://github.com/xNinjaKittyx/OtakuQuotes">
                 <span className="icon">
                   <i className="fa fa-github"></i>
                 </span>

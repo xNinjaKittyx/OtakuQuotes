@@ -41,7 +41,7 @@ class Random extends Component {
 
   render() {
     let fadestate = this.state.transitionFade ? "topkek" : "topkekhide"
-    if (this.state.requestFailed) return <div className="topkek"><h2 className="subtitle is-5">"Websites die when they are killed."</h2><h2 className="subtitle is-6">- 404</h2></div>
+    if (this.state.requestFailed) return <div className="topkek"><h2 className="subtitle is-3 is-size-4">"Websites die when they are killed."</h2><h2 className="subtitle is-6">- 404</h2></div>
     if (!this.state.quotes) return <div className="topkek"><a className="button is-link is-loading">loading</a></div>
     return (
       <div className={fadestate}>
