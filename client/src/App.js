@@ -21,7 +21,7 @@ class App extends Component {
           <Navmenu/>
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/search' component={Search} />
+            <Route path='/search?=' component={Search} />
             <Route path='/about' component={About}/>
             <Route path='/docs' component={Docs}/>
             <Route path='/submit' component={Submit}/>
