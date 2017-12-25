@@ -38,7 +38,7 @@ class Navmenu extends Component {
       <nav className="navbar navigation">
         <div className="container">
         <div className="navbar-brand">
-          <Link to='/' className="navbar-item is-dark is-size-4"><img src="/android-chrome-512x512.png"/><b>OtakuQuotes</b></Link>
+          <Link to='/' className="navbar-item is-dark is-size-4"><img src="/android-chrome-512x512.png" alt="The Best Anime Quotes Around"/><b>OtakuQuotes</b></Link>
 
           <form onSubmit={this.handleSubmit}>
             <div className="field has-addons controltop">
