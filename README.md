@@ -6,17 +6,17 @@ Website and REST API for Anime/Manga Quotes.
 
 ## Usage
 
-###`GET /api/random`
+### `GET /api/random`
 
 GET a random anime quote.
 
-###`GET /api/quotes`
+### `GET /api/quotes`
 
 GET a quote given some tag. Separated by spaces.
 
 Example: `GET /api/quotes?tags=Kaiki%20Deishuu`
 
-###`GET /api/quotes/:id`
+### `GET /api/quotes/:id`
 
 GET a quote from an ID.
 
