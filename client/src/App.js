@@ -35,23 +35,23 @@ class App extends Component {
 
 const Home = () => (
   <div>
-  <section className="hero is-primary is-medium" id="heroback">
+  <section className="hero is-medium" id="heroback">
   <div className="hero-body">
     <div className="container has-text-centered">
-      <h1 className="title">
+      <h1 className="title is-dark is-1 is-size-1">
         OtakuQuotes
       </h1>
-      <h2 className="subtitle">
-        A RESTful API to grab your favorite quotes to show your power level!
+      <h2 className="subtitle is-dark is-size-3">
+        A RESTful API to grab your favorite quotes from Nihon Anime!
       </h2>
       <br />
       <Random />
       <br />
       <p className="hero-buttons">
-        <Link to='/search' className="button is-mainbutton is-large">
+        <Link to='/search' className="button is-mainbutton is-large is-capitalized is-size-4">
           <span>Try It Out!</span>
         </Link>
-        <Link to='/docs' className="button is-secondbutton is-large">
+        <Link to='/docs' className="button is-secondbutton is-large is-capitalized is-size-4">
           <span>View Docs</span>
         </Link>
       </p>
@@ -62,24 +62,48 @@ const Home = () => (
 )
 
 const About = () => (
-  <div className="container">
-    <h1 className="title">About</h1>
-
-  </div>
+    <section className="hero">
+      <div className="hero-body">
+        <div className="container has-text-centered is-dark">
+          <h1 className="is-size-1 title">
+            501
+          </h1>
+          <h1 className="is-size-4 subtitle">
+            About isn't here yet. Wait for it.
+          </h1>
+        </div>
+      </div>
+    </section>
 );
 
 const Docs = () => (
-  <div className="container">
-    <h1 className="title">Documentation</h1>
-
-  </div>
+    <section className="hero">
+      <div className="hero-body">
+        <div className="container has-text-centered is-dark">
+          <h1 className="is-size-1 title">
+            501
+          </h1>
+          <h1 className="is-size-4 subtitle">
+            Docs aren't here yet. Wait for it.
+          </h1>
+        </div>
+      </div>
+    </section>
 );
 
 const NoMatch = () => (
-  <div className="container">
-    <h1 className="title">Websites die when they are killed.</h1>
-    <h1 className="subtitle"> - 404</h1>
-  </div>
+  <section className="hero">
+    <div className="hero-body">
+      <div className="container has-text-centered is-dark">
+        <h1 className="is-size-1 title">
+          404
+        </h1>
+        <h1 className="is-size-4 subtitle">
+          Websites die when they are killed.
+        </h1>
+      </div>
+    </div>
+  </section>
 );
 
 export default App;
