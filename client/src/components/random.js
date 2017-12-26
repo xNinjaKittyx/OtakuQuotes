@@ -44,9 +44,15 @@ class Random extends Component {
     if (this.state.requestFailed) return <div className="topkek"><h2 className="subtitle is-3 is-size-4">"Websites die when they are killed."</h2><h2 className="subtitle is-6">- 404</h2></div>
     if (!this.state.quotes) return <div className="topkek"><a className="button is-link is-loading">loading</a></div>
     return (
-      <div className={fadestate}>
-        <h2 className="subtitle is-5">"{this.state.quotes.quotes.quote}"</h2>
-        <h2 className="subtitle is-6">- {this.state.quotes.quotes.char}</h2>
+      <div className="columns">
+          <div className="column is-one-third"/>
+          <div className="column notification is-one-third is-dark">
+            <div className={fadestate}>
+                <h2 className="subtitle is-5">"{this.state.quotes.quotes.quote}"</h2>
+                <h2 className="subtitle is-6">- <i>{this.state.quotes.quotes.char}</i></h2>
+            </div>
+          </div>
+          <div className="column is-one-third"/>
       </div>
     );
   }
