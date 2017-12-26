@@ -64,12 +64,12 @@ const Home = () => (
 const About = () => (
     <section className="hero">
       <div className="hero-body">
-        <div className="container has-text-centered is-dark">
+        <div className="container is-dark">
           <h1 className="is-size-1 title">
-            501
+            About OtakuQuotes
           </h1>
           <h1 className="is-size-4 subtitle">
-            About isn't here yet. Wait for it.
+            OtakuQuotes was built 
           </h1>
         </div>
       </div>
@@ -84,7 +84,7 @@ const Docs = () => (
             501
           </h1>
           <h1 className="is-size-4 subtitle">
-            Docs aren't here yet. Wait for it.
+            Docs aren't here yet. But you can visit <a href="https://github.com/xNinjaKittyx/OtakuQuotes">GitHub</a> for the temporary solution.
           </h1>
         </div>
       </div>
