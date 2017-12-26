@@ -37,18 +37,20 @@ body {
 }
 
 .is-mainbutton{
-    background: #5D6361;
+    background: #568cf9;
     color: white;
 }
 .is-mainbutton:hover{
-    color: whitesmoke;
-}
-.is-secondbutton{
-    background: #5D6361;
+    background: #407af9;
     color: white;
 }
+.is-secondbutton{
+    background: lightgray;
+    color: black;
+}
 .is-secondbutton:hover{
-    color: whitesmoke;
+    background: #bdbdbd;
+    color: black;
 }
 
 .topkek {
