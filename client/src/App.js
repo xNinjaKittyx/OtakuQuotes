@@ -69,7 +69,7 @@ const About = () => (
             About OtakuQuotes
           </h1>
           <h1 className="is-size-4 subtitle">
-            OtakuQuotes was built 
+            OtakuQuotes was built
           </h1>
         </div>
       </div>
