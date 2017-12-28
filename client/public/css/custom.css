@@ -12,12 +12,12 @@ body {
   font-family: "Catamaran", "Helvetica", "Arial", sans-serif;
 }
 
-#heroback {
-    background: transparent;
-}
+/*#heroback {*/
+    /*background: transparent;*/
+/*}*/
 
 .navigation {
-    background: transparent;
+    background: #d8d8d8 url('/img/bg.png') repeat;
     -webkit-box-shadow: 0 4px 6px -6px #222;
     -moz-box-shadow: 0 4px 6px -6px #222;
     box-shadow: 0 4px 6px -6px #222;

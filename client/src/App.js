@@ -35,7 +35,7 @@ class App extends Component {
 
 const Home = () => (
   <div>
-  <section className="hero is-medium" id="heroback">
+  <section className="hero is-medium">
   <div className="hero-body">
     <div className="container has-text-centered">
       <h1 className="title is-dark is-1 is-size-1">
