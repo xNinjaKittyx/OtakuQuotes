@@ -35,7 +35,7 @@ class App extends Component {
 
 const Home = () => (
   <div>
-  <section className="hero is-medium" id="heroback">
+  <section className="hero is-medium">
   <div className="hero-body">
     <div className="container has-text-centered">
       <h1 className="title is-dark is-1 is-size-1">
@@ -69,7 +69,7 @@ const About = () => (
             About OtakuQuotes
           </h1>
           <h1 className="is-size-4 subtitle">
-            OtakuQuotes was built 
+            OtakuQuotes was built
           </h1>
         </div>
       </div>
