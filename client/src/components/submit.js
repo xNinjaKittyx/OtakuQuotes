@@ -118,6 +118,16 @@ class Submit extends Component {
         }
     }
 
+    alterTextAreaClass() {
+        if(this.state.quote === '') {
+            return 'textarea'
+        } else if (this.state.quoteValid === true) {
+            return 'textarea is-success'
+        } else {
+            return 'textarea is-danger'
+        }
+    }
+
     render() {
         return (
         <div className="container">
@@ -144,7 +154,7 @@ class Submit extends Component {
                         <label className="label">Character</label>
                             <div className="control">
                                 <input
-                                    className="input"
+                                    className={ this.alterFormClass('character') }
                                     type="text"
                                     placeholder="Name of character"
                                     name="character"
@@ -158,7 +168,7 @@ class Submit extends Component {
                         <label className="label">Quote</label>
                             <div className="control">
                                 <textarea
-                                    className="textarea"
+                                    className={ this.alterTextAreaClass() }
                                     placeholder="Quote"
                                     name="quote"
                                     value={this.state.quote}
@@ -171,7 +181,7 @@ class Submit extends Component {
                         <label className="label">Episode</label>
                             <div className="control">
                                 <input
-                                    className="input" 
+                                    className={ this.alterFormClass('episode') }
                                     type="text"
                                     placeholder="Episode number"
                                     name="episode"
