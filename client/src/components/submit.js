@@ -30,12 +30,12 @@ class Submit extends Component {
         }
         event.preventDefault();
 
-        const animeS = this.state.anime.trim()
-        const charS = this.state.character.trim()
-        const quoteS = this.state.quote.trim()
-        const episodeS = this.state.episode.trim()
-        const submitterS = this.state.submitter.trim()
-        const captchaS = this.grecaptcha.getResponse()
+        const animeS = this.state.anime.trim();
+        const charS = this.state.character.trim();
+        const quoteS = this.state.quote.trim();
+        const episodeS = this.state.episode.trim();
+        const submitterS = this.state.submitter.trim();
+        const captchaS = this.document.querySelector('#g-recaptcha-response').value;
 
         axios.post('/api/submit', {
             anime: animeS,
@@ -55,9 +55,9 @@ class Submit extends Component {
     }
 
     handleInputChange(event) {
-        const target = event.target
-        const value = target.value
-        const name = target.name
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
     
         this.setState({[name]: value},
             () => { this.validateForm(name, value)}
