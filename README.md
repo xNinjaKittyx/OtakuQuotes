@@ -22,6 +22,16 @@ GET a quote from an ID.
 
 Example: `GET /api/quotes/1`
 
+## Usage Limits
+
+Currently, there are no usage limits as the product is not completed. In the future there may be usage limits w/
+small payment options to keep the servers alive.
+
+## (unofficial) Terms of Service
+
+- Do not store large amounts of our data. You can keep some for caching purposes, but refrain from mass storage.
+- Please refer to OtakuQuotes somewhere in your application when using this API.
+
 ## Development
 
 WIP
