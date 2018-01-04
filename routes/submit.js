@@ -6,6 +6,7 @@ const request = require('request');
 
 bluebird.promisifyAll(redis);
 const client = redis.createClient(process.env.REDIS_URL);
+const db = require('../db');
 /* GET Quotes API. */
 
 router.post('', async function(req, res){
@@ -41,15 +42,7 @@ router.post('', async function(req, res){
     });
 
     try {
-        const submitted_quotes = await client.incrAsync('submitted_quotes');
-        await client.hmsetAsync('pending:' + submitted_quotes, [
-            'id', submitted_quotes,
-            'anime', anime,
-            'char', char,
-            'quote', quote,
-            'episode', episode,
-            'submitter', submitter
-        ]);
+        await db.query('INSERT INTO pending (quote_content, character_name, anime_name, episode, submitter, image) VALUES ($1, $2, $3, $4, $5, $6)', [quote, char, anime, episode, submitter, 'N/A'])
         res.status(200).json({'status': 200});
     } catch (err) {
         console.log(err);

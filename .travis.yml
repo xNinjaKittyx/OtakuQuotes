@@ -6,11 +6,7 @@ node_js:
 cache:
   directories:
     - "node_modules"
-services:
-  - redis-server
 install:
-  - chmod +x redis_database.sh
-  - ./redis_database.sh
   - npm i && cd client && npm i && cd ..
   - cd client && npm run build && cd ..
   - sudo add-apt-repository ppa:jonathonf/python-3.6 -y
