@@ -4,60 +4,69 @@ const redis = require('redis');
 const Promise = require('bluebird');
 
 Promise.promisifyAll(redis);
-const client = redis.createClient(process.env.REDIS_URL);
+const redis_client = redis.createClient(process.env.REDIS_URL);
+const db = require('../db');
 
-async function scanAsync(cursor, pattern, returnSet, count){
-    const reply = await client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100");
-    const new_cursor = reply[0];
-    const keys = reply[1];
-    for (let key of keys) {
-        returnSet.add(key);
-        if (returnSet.size >= count) {
-            break
-        }
-    }
-    if (cursor === '0' || cursor === 0 || returnSet.size >= count) {
-        return Array.from(returnSet)
-    }
-    else {
-        return await scanAsync(new_cursor, pattern, returnSet)
-    }
-
-}
 router.param('id', async function(req, res, next, id)  {
     try {
-        let result = {'status': 200, 'quote': null};
-        result.quote = await client.hgetallAsync('pending:' + id);
-        if (result.quote === null) {
-            next();
+        let result = {'status': 200, 'quotes': null};
+        result.quotes = await redis_client.getAsync('pending_id:' + id);
+        if (result.quotes === null) {
+            const { rows } = await db.query("SELECT * FROM pending WHERE pending_id = $1", [id]);
+            const quote = rows[0];
+            result.quotes = {
+                'pending_id': quote['pending_id'],
+                'quote': quote['quote_content'],
+                'anime': quote['anime_name'],
+                'char': quote['character_name'],
+                'episode': quote['episode'],
+                'submitter': quote['submitter'],
+                'image': quote['image']
+            };
+            redis_client.set('pending_id:' + id, JSON.stringify(result.quotes), 'EX', '300');
         }
         else {
-            res.status(200).json(result)
+            result.quotes = JSON.parse(result.quotes)
         }
+        res.status(200).json(result)
     } catch (err) {
-        next();
+        console.log(err);
+        res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
     }
 });
 
 router.get('/:id', async function(req, res, next) {
-    console.log('Calling router.get');
     next();
 });
 
 router.get('', async function(req, res) {
     res.locals.title = 'AnimeQuotes';
-    let dem_keys = new Set();
-    let results = 10;
-    if (req.query.limit) {
-        results = req.query.limit;
-    }
-    let result = {'status': 200, 'quotes': []};
 
+    let results = 25;
+    if(req.query.limit){
+        results = min(req.query.limit, 100);
+    }
+    let tags = '';
+    if(req.query.tags){
+        // This is a placeholder for now. in the future, we need a much more robust search.
+        tags = req.query.tags;
+    }
+
+    let result = {'status': 200, 'quotes': []};
     try {
-        dem_keys = await scanAsync('0', 'pending:*', dem_keys, results);
-        result.quotes = [];
-        for (let dem_key of dem_keys) {
-            result.quotes.push(await client.hgetallAsync(dem_key))
+        const { rows } = await db.query("SELECT * FROM pending WHERE quote_content ILIKE $1 OR anime_name ILIKE $1 OR character_name ILIKE $1 LIMIT $2", ['%' + tags + '%', results]);
+        for (let item of rows) {
+            let some_item = {
+                'pending_id': item['pending_id'],
+                'quote': item['quote_content'],
+                'anime': item['anime_name'],
+                'char': item['character_name'],
+                'episode': item['episode'],
+                'submitter': item['submitter'],
+                'image': item['image']
+            };
+            result.quotes.push(some_item)
+
         }
         result.quotes.sort(function (a, b) {
             a = Number(a.id);

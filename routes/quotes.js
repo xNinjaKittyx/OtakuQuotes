@@ -4,75 +4,70 @@ const redis = require('redis');
 const Promise = require('bluebird');
 Promise.promisifyAll(redis);
 
-const client = redis.createClient(process.env.REDIS_URL);
-
-async function scanAsyncTags(cursor, pattern, returnSet, count, tags){
-    // tags must be in ARRAY format.
-    const reply = await client.scanAsync(cursor, "MATCH", pattern, "COUNT", "100");
-    const new_cursor = reply[0];
-    const keys = reply[1];
-    const commands = [];
-    for (let key of keys) {
-        commands.push(client.hgetallAsync(key))
-    }
-    const quotes = await Promise.all(commands);
-
-    for (let quote of quotes) {
-        if (tags.length === 0) {
-            returnSet.add(quote);
-        } else {
-            for (let tag of tags) {
-                if (quote.anime.toLowerCase().indexOf(tag.toLowerCase()) >= 0 ||
-                    quote.char.toLowerCase().indexOf(tag.toLowerCase()) >= 0 ||
-                    quote.quote.toLowerCase().indexOf(tag.toLowerCase()) >= 0) {
-                    returnSet.add(quote);
-                }
-            }
-        }
-        if (returnSet.size >= count) {
-            return Array.from(returnSet)
-        }
-    }
-
-    if (new_cursor === '0' || cursor === 0 || (count && (returnSet.size >= count))) {
-        return Array.from(returnSet);
-    }
-    else {
-        return await scanAsyncTags(new_cursor, pattern, returnSet, count, tags)
-    }
-}
+const redis_client = redis.createClient(process.env.REDIS_URL);
+const db = require('../db');
 
 router.param('id', async function(req, res, next, id)  {
     try {
-        let result = {'status': 200, 'quote': null};
-        result.quote = await client.hgetallAsync('quote:' + id);
+        let result = {'status': 200, 'quotes': null};
+        result.quotes = await redis_client.getAsync('quote_id:' + id);
+        if (result.quotes === null) {
+            const { rows } = await db.query("SELECT * FROM quotes WHERE quote_id = $1", [id]);
+            const quote = rows[0];
+            result.quotes = {
+                'quote_id': quote['quote_id'],
+                'quote': quote['quote_content'],
+                'anime': quote['anime_name'],
+                'char': quote['character_name'],
+                'episode': quote['episode'],
+                'submitter': quote['submitter'],
+                'image': quote['image']
+            };
+            redis_client.set('quote_id:' + id, JSON.stringify(result.quotes), 'EX', '300');
+        }
+        else {
+            result.quotes = JSON.parse(result.quotes)
+        }
         res.status(200).json(result)
     } catch (err) {
-        next();
+        console.log(err);
+        res.status(500).json({'status': 500, 'error': 'Internal Server Error'});
     }
 });
 
 router.get('/:id', async function(req, res, next) {
-    console.log('Calling router.get');
     next();
 });
 
 router.get('', async function(req, res, next) {
     res.locals.title = 'AnimeQuotes';
 
-    let quotes = new Set();
     let results = 25;
     if(req.query.limit){
-        results = req.query.limit;
+        results = min(req.query.limit, 100);
     }
-    let tags = [];
+    let tags = '';
     if(req.query.tags){
-        tags = req.query.tags.split(' ');
+        // This is a placeholder for now. in the future, we need a much more robust search.
+        tags = req.query.tags;
     }
 
     let result = {'status': 200, 'quotes': []};
     try {
-        result.quotes = await scanAsyncTags('0', 'quote:*', quotes, results, tags);
+        const { rows } = await db.query("SELECT * FROM quotes WHERE quote_content ILIKE $1 OR anime_name ILIKE $1 OR character_name ILIKE $1 LIMIT $2", ['%' + tags + '%', results]);
+        for (let item of rows) {
+            let some_item = {
+                'quote_id': item['quote_id'],
+                'quote': item['quote_content'],
+                'anime': item['anime_name'],
+                'char': item['character_name'],
+                'episode': item['episode'],
+                'submitter': item['submitter'],
+                'image': item['image']
+            };
+            result.quotes.push(some_item)
+
+        }
         result.quotes.sort(function (a, b) {
             a = Number(a.id);
             b = Number(b.id);

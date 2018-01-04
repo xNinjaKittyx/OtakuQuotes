@@ -21,6 +21,7 @@
     "express": "~4.15.2",
     "express-validator": "^3.2.1",
     "morgan": "~1.8.1",
+    "pg": "^7.4.0",
     "random-js": "^1.0.8",
     "redis": "^2.7.1",
     "redisscan": "^2.0.0",

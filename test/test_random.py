@@ -10,5 +10,6 @@ def test_random():
     assert quote['char'] == 'Emiya Shirou'
     assert quote['quote'] == 'People die when they are killed.'
 
+
 if __name__ == "__main__":
     test_random()
