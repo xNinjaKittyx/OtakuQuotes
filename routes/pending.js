@@ -44,7 +44,7 @@ router.get('', async function(req, res) {
 
     let results = 25;
     if(req.query.limit){
-        results = min(req.query.limit, 100);
+        results = Math.min(req.query.limit, 100);
     }
     let tags = '';
     if(req.query.tags){
