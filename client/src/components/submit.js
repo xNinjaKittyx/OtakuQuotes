@@ -238,6 +238,14 @@ class Submit extends Component {
                     <div className="column is-5">
                         <br />
                         <h2 className="subtitle">Submission Guidelines:</h2>
+                        <br />
+                        <ol>
+                            <li>Please only use ASCII-compliant characters for now.</li>
+                            <li>No NSFW Quotes. This includes quotes originating from explicit anime.</li>
+                            <li>Feel free to submit as many or as little as you'd like.</li>
+                            <li>If you cannot include an episode number, please enter 0.</li>
+                            <li>Submitter cannot be left blank, but feel free to leave it as Anon.</li>
+                        </ol>
                     </div>
                 </div>
             </form>
