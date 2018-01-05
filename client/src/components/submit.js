@@ -35,7 +35,6 @@ class Submit extends Component {
         const quoteS = this.state.quote.trim();
         const episodeS = this.state.episode.trim();
         const submitterS = this.state.submitter.trim();
-        const captchaS = this.document.querySelector('#g-recaptcha-response').value;
 
         axios.post('/api/submit', {
             anime: animeS,
@@ -43,7 +42,6 @@ class Submit extends Component {
             quote: quoteS,
             episode: episodeS,
             submitter: submitterS,
-            captcha: captchaS
         })
         .then((response) => {
             console.log(response);
