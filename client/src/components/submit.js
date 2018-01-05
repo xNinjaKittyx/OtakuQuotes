@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReCAPTCHA from "react-google-recaptcha";
 
 class Submit extends Component {
 
@@ -11,6 +12,7 @@ class Submit extends Component {
             quote: '',
             episode: '',
             submitter: '',
+            recaptchatoken: '',
             animeValid: false,
             characterValid: false,
             quoteValid: false,
@@ -19,6 +21,7 @@ class Submit extends Component {
             formValid: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCaptcha = this.handleCaptcha.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.alterFormClass = this.alterFormClass.bind(this);
@@ -35,7 +38,7 @@ class Submit extends Component {
         const quoteS = this.state.quote.trim();
         const episodeS = this.state.episode.trim();
         const submitterS = this.state.submitter.trim();
-        const captchaS = this.document.querySelector('#g-recaptcha-response').value;
+        const captchaS = this.state.recaptchatoken;
 
         axios.post('/api/submit', {
             anime: animeS,
@@ -46,12 +49,18 @@ class Submit extends Component {
             captcha: captchaS
         })
         .then((response) => {
-            console.log(response);
             alert(response.data.message);
+            window.location.reload(true);
         })
         .catch((err) => {
             console.log(err);
         });
+    }
+
+    handleCaptcha(value) {
+        this.setState({
+            recaptchatoken: value
+        })
     }
 
     handleInputChange(event) {
@@ -84,7 +93,7 @@ class Submit extends Component {
                 quoteValid = regex.test(value);
                 break;
             case 'episode':
-                episodeValid = regex.test(value);
+                episodeValid = !isNaN(parseFloat(value)) && isFinite(value);
                 break;
             case 'submitter':
                 submitterValid = regex.test(value);
@@ -207,8 +216,13 @@ class Submit extends Component {
 
                         <div className="field">
                             <div className="control">
-                                <div className="g-recaptcha" data-sitekey="6LfX7TEUAAAAAHVR4_KHGZCIiP0bvJwLfdKL_AuJ">
-                                </div>
+                                <ReCAPTCHA
+                                    ref="recaptcha"
+                                    sitekey="6LfX7TEUAAAAAHVR4_KHGZCIiP0bvJwLfdKL_AuJ"
+                                    onChange={this.handleCaptcha}
+                                />
+                                {/*<div ref="captcha" className="g-recaptcha" data-sitekey="6LfX7TEUAAAAAHVR4_KHGZCIiP0bvJwLfdKL_AuJ">*/}
+                                {/*</div>*/}
                             </div>
                         </div>
 
