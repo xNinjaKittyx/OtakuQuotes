@@ -28,10 +28,10 @@ router.get('', async function(req, res, next) {
                 'SET search_path TO otakuquotes; ' +
                 'SELECT quotes.quote_text, quotes.date_added, quotes.episode, ' +
                 'quotes.time_stamp, quotes.submitter_name, ' +
-                'characters.char_name, characters.image, anime.anime_name' +
+                'characters.char_name, characters.image, anime.anime_name ' +
                 'FROM quotes ' +
-                'LEFT JOIN characters ON quotes.char_id = characters.char_id' +
-                'LEFT JOIN anime ON characters.anime_id = anime.anime_id' +
+                'LEFT JOIN characters ON quotes.char_id = characters.char_id ' +
+                'LEFT JOIN anime ON characters.anime_id = anime.anime_id ' +
                 'WHERE quotes.quote_id = $1', [random_id]);
             const quote = rows[0];
             result.quotes = {
