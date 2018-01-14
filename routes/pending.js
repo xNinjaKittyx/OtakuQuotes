@@ -14,7 +14,7 @@ router.param('id', async function(req, res, next, id)  {
         if (result.quotes === null) {
             const { rows } = await db.query(
                 "SELECT * FROM pending " +
-                "WHERE quote_id = $1", [id]);
+                "WHERE quotes_id = $1", [id]);
             const quote = rows[0];
             result.quotes = {
                 'pending_id': quote['quote_id'],
