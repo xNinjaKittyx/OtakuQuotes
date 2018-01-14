@@ -55,13 +55,13 @@ router.post('', async function(req, res){
         }
         if (anime)
         try {
-            await db.query('INSERT INTO pending (quote_content, character_name, anime_name, episode, submitter, image) VALUES ($1, $2, $3, $4, $5, $6)', [quote, char, anime, episode, submitter, 'N/A'])
+            await db.query(
+                'INSERT INTO otakuquotes.pending (quote_text, char_name, anime_name, episode, submitter_name, time_stamp) ' +
+                'VALUES ($1, $2, $3, $4, $5, $6)', [quote, char, anime, episode, submitter, '00:00:00']);
             res.status(200).json({'status': 200, 'success': true, 'message': 'Quote Submitted! Thanks for submitting!'});
-            return
         } catch (err) {
             console.log(err);
             res.status(500).json({'status': 500, 'success': false, 'error': 'Internal Server Error'});
-            return
         }
     })
 
