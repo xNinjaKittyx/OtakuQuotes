@@ -13,7 +13,8 @@ router.param('id', async function(req, res, next, id)  {
         result.quotes = await redis_client.getAsync('pending_id:' + id);
         if (result.quotes === null) {
             const { rows } = await db.query(
-                "SELECT * FROM pending " +
+                "SELECT * " +
+                "FROM otakuquotes.pending " +
                 "WHERE quotes_id = $1", [id]);
             const quote = rows[0];
             result.quotes = {
@@ -59,7 +60,7 @@ router.get('', async function(req, res) {
     try {
         const { rows } = await db.query(
             "SELECT quotes_id, quote_text, anime_name, char_name " +
-            "FROM pending WHERE quote_content " +
+            "FROM otakuquotes.pending WHERE quote_content " +
             "ILIKE $1 OR anime_name ILIKE $1 OR character_name ILIKE $1 " +
             "LIMIT $2", ['%' + tags + '%', results]);
         for (let item of rows) {
