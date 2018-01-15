@@ -66,9 +66,9 @@ router.get('', async function(req, res, next) {
         const { rows } = await db.query(
             'SELECT quotes.quote_id, quotes.quote_text, ' +
             'characters.char_name, anime.anime_name ' +
-            'FROM quotes ' +
-            'LEFT JOIN characters ON quotes.char_id = characters.char_id ' +
-            'LEFT JOIN anime ON characters.anime_id = anime.anime_id ' +
+            'FROM otakuquotes.quotes ' +
+            'LEFT JOIN otakuquotes.characters ON quotes.char_id = characters.char_id ' +
+            'LEFT JOIN otakuquotes.anime ON characters.anime_id = anime.anime_id ' +
             'WHERE quotes.quote_text ILIKE $1 OR anime.anime_name ILIKE $1 OR characters.char_name ILIKE anime.anime_name ' +
             'LIMIT $2', ['%' + tags + '%', results]);
         for (let item of rows) {
