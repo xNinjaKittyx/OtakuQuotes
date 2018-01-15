@@ -15,9 +15,8 @@ router.get('', async function(req, res, next) {
         let result = {'quotes': null};
         let quote_count = await redis_client.getAsync('quotecount');
         if (quote_count === null) {
-            const { rows } = await db.query('SELECT max(quote_id) FROM quotes');
+            const { rows } = await db.query('SELECT max(quote_id) FROM otakuquotes.quotes');
 
-            console.log(rows);
             quote_count = rows[0]['max'];
             await redis_client.setAsync('quotecount', quote_count, 'EX', '150')
         }
