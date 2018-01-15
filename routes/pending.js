@@ -59,7 +59,7 @@ router.get('', async function(req, res) {
     let result = {'status': 200, 'quotes': []};
     try {
         const { rows } = await db.query(
-            "SELECT quotes_id, quote_text, anime_name, char_name " +
+            "SELECT quote_id, quote_text, anime_name, char_name " +
             "FROM otakuquotes.pending WHERE quote_content " +
             "ILIKE $1 OR anime_name ILIKE $1 OR character_name ILIKE $1 " +
             "LIMIT $2", ['%' + tags + '%', results]);

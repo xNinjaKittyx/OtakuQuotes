@@ -13,7 +13,6 @@ router.param('id', async function(req, res, next, id)  {
         result.quotes = await redis_client.getAsync('quote_id:' + id);
         if (result.quotes === null) {
             const { rows } = await db.query(
-                'SET search_path TO otakuquotes; ' +
                 'SELECT quotes.quote_id, quotes.quote_text, quotes.date_added, ' +
                 'quotes.episode, quotes.time_stamp, quotes.submitter_name, ' +
                 'characters.char_name, characters.image, anime.anime_name ' +
@@ -65,13 +64,12 @@ router.get('', async function(req, res, next) {
     let result = {'status': 200, 'quotes': []};
     try {
         const { rows } = await db.query(
-            'SET search_path TO otakuquotes; ' +
             'SELECT quotes.quote_id, quotes.quote_text, ' +
             'characters.char_name, anime.anime_name ' +
             'FROM quotes ' +
             'LEFT JOIN characters ON quotes.char_id = characters.char_id ' +
             'LEFT JOIN anime ON characters.anime_id = anime.anime_id ' +
-            'WHERE quotes.quote_text ILIKE $1 OR anime.anime_name ILIKE $1 OR characters.char_name ILIKE ' +
+            'WHERE quotes.quote_text ILIKE $1 OR anime.anime_name ILIKE $1 OR characters.char_name ILIKE anime.anime_name ' +
             'LIMIT $2', ['%' + tags + '%', results]);
         for (let item of rows) {
             let some_item = {
