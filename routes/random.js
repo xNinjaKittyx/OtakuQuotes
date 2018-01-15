@@ -25,7 +25,7 @@ router.get('', async function(req, res, next) {
         result.quotes = await redis_client.getAsync('quote_id:' + random_id);
         if (result.quotes === null) {
             const { rows } = await db.query(
-                'SELECT quotes.quote_text, quotes.date_added, quotes.episode, ' +
+                'SELECT quotes.quote_id, quotes.quote_text, quotes.date_added, quotes.episode, ' +
                 'quotes.time_stamp, quotes.submitter_name, ' +
                 'characters.char_name, characters.image, anime.anime_name ' +
                 'FROM otakuquotes.quotes ' +
