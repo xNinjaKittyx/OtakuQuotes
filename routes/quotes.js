@@ -16,9 +16,9 @@ router.param('id', async function(req, res, next, id)  {
                 'SELECT quotes.quote_id, quotes.quote_text, quotes.date_added, ' +
                 'quotes.episode, quotes.time_stamp, quotes.submitter_name, ' +
                 'characters.char_name, characters.image, anime.anime_name ' +
-                'FROM quotes ' +
-                'LEFT JOIN characters ON quotes.char_id = characters.char_id ' +
-                'LEFT JOIN anime ON characters.anime_id = anime.anime_id ' +
+                'FROM otakuquotes.quotes ' +
+                'LEFT JOIN otakuquotes.characters ON quotes.char_id = characters.char_id ' +
+                'LEFT JOIN otakuquotes.anime ON characters.anime_id = anime.anime_id ' +
                 'WHERE quotes.quote_id = $1', [id]);
             const quote = rows[0];
             result.quotes = {
