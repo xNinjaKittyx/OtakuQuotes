@@ -5,7 +5,6 @@ const bluebird = require('bluebird');
 const request = require('request');
 
 bluebird.promisifyAll(redis);
-const client = redis.createClient(process.env.REDIS_URL);
 const db = require('../db');
 /* GET Quotes API. */
 
@@ -45,24 +44,24 @@ router.post('', async function(req, res){
         }
 
         res.locals.title = 'AnimeQuotes';
-        let anime = req.body.anime;
-        let char = req.body.char;
-        let quote = req.body.quote;
-        let episode = req.body.episode;
-        let submitter = req.body.submitter;
+        let anime = req.body.anime.replace(/[^\x00-\x7F]/g, "");
+        let char = req.body.char.replace(/[^\x00-\x7F]/g, "");
+        let quote = req.body.quote.replace(/[^\x00-\x7F]/g, "");
+        let episode = req.body.episode.replace(/[^\x00-\x7F]/g, "");
+        let submitter = req.body.submitter.replace(/[^\x00-\x7F]/g, "");
         if (!(anime && char && quote && episode && submitter)) {
-            console.log(anime + ' ' + char + ' ' + quote + ' ' + episode + ' ' + submitter);
-            res.status(400).json({'status': 400, 'success': false, 'error': 'Invalid Request'});
+            res.status(400).json({'status': 400, 'success': false, 'error': 'Invalid Request. Please note that we do not accept non-ascii characters at the moment.'});
             return
         }
+        if (anime)
         try {
-            await db.query('INSERT INTO pending (quote_content, character_name, anime_name, episode, submitter, image) VALUES ($1, $2, $3, $4, $5, $6)', [quote, char, anime, episode, submitter, 'N/A'])
+            await db.query(
+                'INSERT INTO otakuquotes.pending (quote_text, char_name, anime_name, episode, submitter_name, time_stamp) ' +
+                'VALUES ($1, $2, $3, $4, $5, $6)', [quote, char, anime, episode, submitter, '00:00:00']);
             res.status(200).json({'status': 200, 'success': true, 'message': 'Quote Submitted! Thanks for submitting!'});
-            return
         } catch (err) {
             console.log(err);
             res.status(500).json({'status': 500, 'success': false, 'error': 'Internal Server Error'});
-            return
         }
     })
 

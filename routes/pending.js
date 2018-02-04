@@ -12,16 +12,20 @@ router.param('id', async function(req, res, next, id)  {
         let result = {'status': 200, 'quotes': null};
         result.quotes = await redis_client.getAsync('pending_id:' + id);
         if (result.quotes === null) {
-            const { rows } = await db.query("SELECT * FROM pending WHERE pending_id = $1", [id]);
+            const { rows } = await db.query(
+                "SELECT * " +
+                "FROM otakuquotes.pending " +
+                "WHERE quotes_id = $1", [id]);
             const quote = rows[0];
             result.quotes = {
-                'pending_id': quote['pending_id'],
-                'quote': quote['quote_content'],
+                'pending_id': quote['quote_id'],
+                'quote': quote['quote_text'],
                 'anime': quote['anime_name'],
-                'char': quote['character_name'],
+                'char': quote['char_name'],
                 'episode': quote['episode'],
-                'submitter': quote['submitter'],
-                'image': quote['image']
+                'timestamp': quote['time_stamp'],
+                'submitter': quote['submitter_name'],
+                'date_submitted': quote['date_submitted'],
             };
             redis_client.set('pending_id:' + id, JSON.stringify(result.quotes), 'EX', '300');
         }
@@ -54,16 +58,17 @@ router.get('', async function(req, res) {
 
     let result = {'status': 200, 'quotes': []};
     try {
-        const { rows } = await db.query("SELECT * FROM pending WHERE quote_content ILIKE $1 OR anime_name ILIKE $1 OR character_name ILIKE $1 LIMIT $2", ['%' + tags + '%', results]);
+        const { rows } = await db.query(
+            "SELECT quote_id, quote_text, anime_name, char_name " +
+            "FROM otakuquotes.pending WHERE quote_text " +
+            "ILIKE $1 OR anime_name ILIKE $1 OR char_name ILIKE $1 " +
+            "LIMIT $2", ['%' + tags + '%', results]);
         for (let item of rows) {
             let some_item = {
-                'pending_id': item['pending_id'],
-                'quote': item['quote_content'],
+                'pending_id': item['quote_id'],
+                'quote': item['quote_text'],
                 'anime': item['anime_name'],
-                'char': item['character_name'],
-                'episode': item['episode'],
-                'submitter': item['submitter'],
-                'image': item['image']
+                'char': item['char_name'],
             };
             result.quotes.push(some_item)
 
