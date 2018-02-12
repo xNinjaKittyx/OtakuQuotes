@@ -2,6 +2,10 @@
 [![Build Status](https://travis-ci.org/xNinjaKittyx/OtakuQuotes.svg?branch=master)](https://travis-ci.org/xNinjaKittyx/OtakuQuotes)
 
 
+Remaking the whole project from scratch using a different webstack.
+
+[Find it here.](https://github.com/OtakuQuotes/OtakuQuotes)
+
 Website and REST API for Anime/Manga Quotes.
 
 ## Usage
